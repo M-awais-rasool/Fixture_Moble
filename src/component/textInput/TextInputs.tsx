@@ -6,10 +6,11 @@ export default function TextInputs(props: any) {
   return (
     <View>
       <Text style={style.lebel}>{props.lebel}</Text>
-      <TextInput  style={style.input} placeholder={props.placeholder} />
-      <View style={style.icon}>
-        {props.icon}
-      </View>
+      <TextInput
+        style={[style.input, props.style]}
+        placeholder={props.placeholder}
+      />
+      <View style={style.icon}>{props.icon}</View>
     </View>
   );
 }

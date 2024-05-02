@@ -10,6 +10,7 @@ const style = StyleSheet.create({
     fontWeight: '500',
     paddingLeft: 10,
     color: 'black',
+    paddingRight: 35,
   },
   lebel: {
     fontSize: 14,
@@ -18,11 +19,11 @@ const style = StyleSheet.create({
     marginLeft: 5,
     marginBottom: 2,
   },
-  icon:{
-    position:"absolute",
-    right:10,
-    top:29
-  }
+  icon: {
+    position: 'absolute',
+    right: 10,
+    top: 29,
+  },
 });
 
 export default style;

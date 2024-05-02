@@ -10,16 +10,14 @@ export default function Navigation() {
   const Stack = createStackNavigator();
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="SignIn"
-          screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="BottomTabs" component={BottomTabs} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="BottomTabs"
+        screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="BottomTabs" component={BottomTabs} />
+      </Stack.Navigator>
     </>
   );
 }
