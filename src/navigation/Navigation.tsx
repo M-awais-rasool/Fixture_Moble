@@ -11,7 +11,7 @@ export default function Navigation() {
   return (
     <>
       <Stack.Navigator
-        initialRouteName="BottomTabs"
+        initialRouteName="SignIn"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="SignIn" component={SignIn} />

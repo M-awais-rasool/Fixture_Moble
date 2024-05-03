@@ -21,6 +21,7 @@ const style = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 25,
     borderColor: '#606060',
+    height:40
   },
   googleText: {
     fontSize: 16,

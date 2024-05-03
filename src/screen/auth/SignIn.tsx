@@ -39,7 +39,7 @@ export default function SignIn() {
         <Buttons
           title={'Login'}
           onPress={() => {
-            nav.navigate('Home');
+            nav.navigate('BottomTabs');
           }}
         />
         <Text style={style.orText}>Or</Text>

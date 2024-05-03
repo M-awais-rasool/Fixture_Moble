@@ -37,7 +37,7 @@ export default function SignUp() {
         <TextInputs
           lebel={'Password'}
           placeholder={'Enter Your Password'}
-          icon={<Image source={require('../../assets/images/email.png')} />}
+          icon={<Image source={require('../../assets/images/password.png')} />}
         />
         <View style={{marginTop: 20}} />
         <TextInputs

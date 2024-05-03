@@ -17,7 +17,9 @@ export default function BottomTabs() {
         tabBarStyle: {
           backgroundColor: '#fff',
           // height: 60,
-          elevation:20
+          elevation:10,
+          borderTopColor:'#F29900',
+          borderTopWidth:2
         },
       }}>
       <Tab.Screen
