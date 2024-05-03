@@ -1,4 +1,4 @@
-import {View, Text, ImageBackground, Image, Dimensions} from 'react-native';
+import {View,ImageBackground, Image, Dimensions} from 'react-native';
 import React from 'react';
 import style from './style';
 import TextInputs from '../textInput/TextInputs';
@@ -6,7 +6,7 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function Header() {
   return (
-    <View>
+    <View style={{height: 103}}>
       <ImageBackground
         source={require('../../assets/images/HeaderBackgroundImg.png')}
         style={style.BackgroundImg}>

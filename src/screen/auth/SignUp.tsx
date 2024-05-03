@@ -3,8 +3,8 @@ import {
   Text,
   ScrollView,
   Image,
-  TouchableOpacity,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 import style from './AuthStyle';
@@ -12,6 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import TextInputs from '../../component/textInput/TextInputs';
 import Buttons from '../../component/buttons/Buttons';
 import GoogleBtn from '../../component/buttons/GoogleBtn';
+const windowWidth = Dimensions.get('window').width;
 
 export default function SignUp() {
   const nav: any = useNavigation();
@@ -22,30 +23,42 @@ export default function SignUp() {
       </View>
       <View style={style.InputContainer}>
         <View style={{marginTop: 50}} />
-        <TextInputs
-          lebel={'Full Name'}
-          placeholder={'Enter Your Full Name'}
-          icon={<Image source={require('../../assets/images/usericon.png')} />}
-        />
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <TextInputs
+            lebel={'First Name'}
+            placeholder={'First Name'}
+            style={{width: windowWidth / 2.7}}
+            icon={
+              <Image source={require('../../assets/images/usericon.png')} />
+            }
+          />
+          <TextInputs
+            lebel={'Last Name'}
+            placeholder={'Last Name'}
+            style={{width: windowWidth / 2.7}}
+            icon={
+              <Image source={require('../../assets/images/usericon.png')} />
+            }
+          />
+        </View>
         <View style={{marginTop: 20}} />
         <TextInputs
-          lebel={'E-mail'}
-          placeholder={'Enter Your E-mail'}
-          icon={<Image source={require('../../assets/images/email.png')} />}
+          lebel={'Phone No'}
+          placeholder={'Phone No'}
+          icon={<Image source={require('../../assets/images/Phoneicon.png')} />}
         />
         <View style={{marginTop: 20}} />
         <TextInputs
           lebel={'Password'}
-          placeholder={'Enter Your Password'}
+          placeholder={'Password'}
           icon={<Image source={require('../../assets/images/password.png')} />}
         />
         <View style={{marginTop: 20}} />
         <TextInputs
-          lebel={'Phone No'}
-          placeholder={'Enter Your Phone No'}
-          icon={<Image source={require('../../assets/images/Phoneicon.png')} />}
+          lebel={'Confirm Password'}
+          placeholder={'Confirm Password'}
         />
-        <View style={{marginTop:10}}/>
+        <View style={{marginTop: 10}} />
         <Buttons
           title={'Sign up'}
           onPress={() => {

@@ -19,6 +19,20 @@ API.interceptors.request.use(
   },
 );
 
-// API.interceptors.response.use(function (response: any) {
-//   return response;
-// });
+API.interceptors.response.use(
+  function (response) {
+    console.log('res '+response)
+    return response;
+  },
+  async function (error: any) {
+    let errors = JSON.stringify(error.response.status)
+    if (errors === '401') {
+      console.log('API Error');
+      const res = {
+        ...error,
+        data: {status: 401, ...error},
+      };
+      return res;
+    }
+  },
+);

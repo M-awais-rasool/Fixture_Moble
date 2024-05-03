@@ -8,11 +8,12 @@ import {
 import Slider from '../../component/slider/Slider';
 import style from './style';
 import {TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Home() {
   const [getCategories_detail, setGetCategories_detail] = useState([]);
   const [getPapular_ProductsL, setGetPapular_ProductsL] = useState([]);
-
+  const nav: any = useNavigation();
   useEffect(() => {
     getData();
   }, []);
@@ -23,8 +24,7 @@ export default function Home() {
     setGetPapular_ProductsL(papular_ProductsL);
   };
   return (
-    <View>
-      <Header />
+    <View style={style.container}>
       <View style={{marginHorizontal: 15}}>
         <View style={style.textContainer}>
           <Text style={style.CategoriesText}>Categories</Text>
@@ -32,8 +32,16 @@ export default function Home() {
             <Text style={style.viewText}>View all</Text>
           </TouchableOpacity>
         </View>
-        <Slider data={getCategories_detail} />
-        <View style={[style.textContainer,{marginTop:10}]}>
+        <Slider
+          data={getCategories_detail}
+          onPress={(data: any) => {
+            nav.navigate('Main_categori_details', {
+              data: data.categories,
+              name: data.name,
+            });
+          }}
+        />
+        <View style={[style.textContainer, {marginTop: 10}]}>
           <Text style={style.CategoriesText}>Papular Products</Text>
           <TouchableOpacity>
             <Text style={style.viewText}>View all</Text>

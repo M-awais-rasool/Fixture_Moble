@@ -5,16 +5,44 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import style from './AuthStyle';
 import TextInputs from '../../component/textInput/TextInputs';
 import Buttons from '../../component/buttons/Buttons';
 import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import GoogleBtn from '../../component/buttons/GoogleBtn';
+import {Login} from '../../api/services/Post';
+import Toast from 'react-native-toast-message';
 
 export default function SignIn() {
+  const [phoneNo, setPhoneNo] = useState('');
+  const [password, setPassword] = useState('');
   const nav: any = useNavigation();
+
+  const login = async () => {
+    let data = {
+      password: password,
+      phone: phoneNo,
+    };
+    const login_res = await Login(data);
+    if (login_res.status == 200) {
+      setPassword('');
+      setPhoneNo('');
+      nav.navigate('BottomTabs');
+      Toast.show({
+        type: 'success',
+        text1: 'Login Successfully',
+        visibilityTime: 3000,
+      });
+    } else if (login_res.data.status == 401) {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid Phone No or Passowrd',
+        visibilityTime: 3000,
+      });
+    }
+  };
   return (
     <ScrollView style={style.container}>
       <View style={style.imgContainer}>
@@ -23,14 +51,20 @@ export default function SignIn() {
       <View style={style.InputContainer}>
         <View style={{marginTop: 50}} />
         <TextInputs
-          lebel={'E-mail'}
-          placeholder={'Enter Your E-mail'}
-          icon={<Image source={require('../../assets/images/email.png')} />}
+          lebel={'Phone No'}
+          placeholder={'Phone No'}
+          onChange={setPhoneNo}
+          keyboardType={'numeric'}
+          maxLength={11}
+          value={phoneNo}
+          icon={<Image source={require('../../assets/images/Phoneicon.png')} />}
         />
         <View style={{marginTop: 20}} />
         <TextInputs
           lebel={'Password'}
-          placeholder={'Enter Your Password'}
+          placeholder={'Password'}
+          onChange={setPassword}
+          value={password}
           icon={<Image source={require('../../assets/images/password.png')} />}
         />
         <TouchableOpacity>
@@ -39,7 +73,7 @@ export default function SignIn() {
         <Buttons
           title={'Login'}
           onPress={() => {
-            nav.navigate('BottomTabs');
+            login();
           }}
         />
         <Text style={style.orText}>Or</Text>
