@@ -1,7 +1,7 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import favouriteScreen from '../screen/favouriteScreen/FavouriteScreen';
+import WishList from '../screen/wishList/WishList';
 import MessageScreen from '../screen/messageScreen/MessageScreen';
 import UserProfile from '../screen/userProfile/UserProfile';
 import BottomStack from './BottomStack';
@@ -49,8 +49,8 @@ export default function BottomTabs() {
           }}
         />
         <Tab.Screen
-          component={favouriteScreen}
-          name="favouriteScreen"
+          component={WishList}
+          name="WishList"
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({focused}: any) => {

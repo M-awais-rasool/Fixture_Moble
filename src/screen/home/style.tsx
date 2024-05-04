@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import Theme from '../../theme/Theme';
 
 const style = StyleSheet.create({
   container: {
@@ -12,8 +13,8 @@ const style = StyleSheet.create({
     marginHorizontal: 10,
   },
   CategoriesText: {
-    fontSize: 16,
-    fontWeight: '800',
+    fontSize: Theme.fontSize.size16,
+    fontWeight: '700',
     color: 'black',
   },
   viewText: {
