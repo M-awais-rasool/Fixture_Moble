@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 const CreateContex = createContext({});
 
 const GlobelContex = (props: any) => {
-  const [addToCartState, setAddToCartState] = useState<any>(2);
+  const [addToCartState, setAddToCartState] = useState<any>(0);
 
   const isAdd_To_Cart_State = (item: any) => {
     setAddToCartState(item);

@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import GoogleBtn from '../../component/buttons/GoogleBtn';
 import {Login} from '../../api/services/Post';
 import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignIn() {
   const [phoneNo, setPhoneNo] = useState('');
@@ -27,9 +28,10 @@ export default function SignIn() {
     };
     const login_res = await Login(data);
     if (login_res.status == 200) {
+      await AsyncStorage.setItem('token', login_res.data.token);
       setPassword('');
       setPhoneNo('');
-      nav.navigate('BottomTabs');
+      nav.replace('BottomTabs');
       Toast.show({
         type: 'success',
         text1: 'Login Successfully',

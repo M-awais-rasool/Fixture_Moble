@@ -6,6 +6,7 @@ const Theme = {
     black: '#000000',
     lightBlack: '#595959',
     lightRed:'#D93B3B',
+    borderColor:'#DFDFDF',
     
     BtnColor:'#F29900',
     bgColor1: '#FFFFFF',

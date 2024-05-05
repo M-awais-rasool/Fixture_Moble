@@ -4,6 +4,7 @@ import Home from '../screen/home/Home';
 import BottomTabs from './BottomTabs';
 import Main_categori_details from '../screen/main_Categori_details/Main_categori_details';
 import Main_Sub_Categori from '../screen/main_Categori_details/main_sub_categori.tsx/Main_Sub_Categori';
+import Product_cart from '../screen/product_cart/Product_cart';
 
 export default function BottomStack() {
   const Stack = createStackNavigator();
@@ -18,7 +19,7 @@ export default function BottomStack() {
           component={Main_categori_details}
         />
         <Stack.Screen name="Main_Sub_Categori" component={Main_Sub_Categori} />
-
+        <Stack.Screen name="Product_cart" component={Product_cart} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
       </Stack.Navigator>
     </>

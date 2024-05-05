@@ -49,7 +49,7 @@ export default function Main_categori_details() {
           {name}
         </Text>
         {loading ? (
-          <View style={{marginTop: 20}}>
+          <View style={style.mainContainer}>
             <Loader />
           </View>
         ) : (
@@ -70,6 +70,7 @@ export default function Main_categori_details() {
                     backgroundColor: 'white',
                     alignItems: 'center',
                     borderRadius: 5,
+                    // justifyContent:'center'
                   }}>
                   <Image source={{uri: val.image}} style={style.img} />
                   <Text style={style.containerText} numberOfLines={1}>

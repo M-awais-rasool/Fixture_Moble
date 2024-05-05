@@ -28,7 +28,7 @@ export default function Main_Sub_Categori() {
         {Route.params.name} Furniture
       </Text>
       {loading ? (
-        <View>
+        <View style={style.mainContainer}>
           <Loader />
         </View>
       ) : (
@@ -36,6 +36,9 @@ export default function Main_Sub_Categori() {
           {getData.length > 0 ? (
             getData.map((val: any, index: any) => (
               <TouchableOpacity
+                onPress={() =>
+                  nav.navigate('Product_cart', {Id: val.productId})
+                }
                 key={index}
                 style={style.subCategoriInnerContainer}>
                 <Image source={{uri: val.image}} style={style.subCategoriImg} />

@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import Theme from '../../theme/Theme';
+const windowWidth = Dimensions.get('window').width;
 
 const style = StyleSheet.create({
   mainContainer: {
@@ -16,10 +17,13 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     padding: 10,
+    justifyContent:'center'
   },
   innerContainer: {
     margin: 10,
     elevation: 3,
+    // alignItems:'center',
+    // justifyContent:'center'
   },
   img: {
     width: 75,
@@ -45,12 +49,14 @@ const style = StyleSheet.create({
     // padding: 5,
     margin: 5,
     overflow: 'hidden',
-    width: 150,
+    width: windowWidth/2.5,
     elevation: 3,
     borderRadius: 5,
+    borderWidth:1,
+    borderColor:Theme.colors.borderColor
   },
   subCategoriImg: {
-    width: 150,
+    width: '100%',
     height: 100,
   },
   subCategoriText: {

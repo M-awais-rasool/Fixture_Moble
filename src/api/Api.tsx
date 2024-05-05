@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const APIURl = 'https://fixturesmobel.com:446/Api/';
 
@@ -9,6 +10,10 @@ export const API = axios.create({
 
 API.interceptors.request.use(
   async function (_config: any) {
+    let token = await AsyncStorage.getItem('token');
+    if (token != null || token != '' || token != undefined) {
+      _config.headers.Authorization = 'Bearer ' + token;
+    }
     _config.headers['Content-Type'] = 'application/json';
     _config.headers['tenant'] = 'development';
 
@@ -21,7 +26,6 @@ API.interceptors.request.use(
 
 API.interceptors.response.use(
   function (response) {
-    console.log('res '+response)
     return response;
   },
   async function (error: any) {
