@@ -5,7 +5,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import style from './style';
 import Theme from '../../theme/Theme';
 import {TouchableOpacity} from 'react-native';
-import {add_to_WishList} from '../../api/services/Post';
+import {add_to_Cart, add_to_WishList} from '../../api/services/Post';
 import Toast from 'react-native-toast-message';
 import {remove_to_WishList} from '../../api/services/Delete';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,11 +18,10 @@ export default function Product_cart() {
   const Route: any = useRoute();
   const [quantity, setQuantity] = useState(1);
   const [data, setData] = useState<any>([]);
-  const [wishListFlag, setWishListFlag] = useState(false);
   const [loading, setLoading] = useState(false);
   const nav: any = useNavigation();
   const context: any = useGlobalContext();
-
+  const regex = /(<([^>]+)>)/gi;
   useEffect(() => {
     getData();
   }, []);
@@ -30,28 +29,43 @@ export default function Product_cart() {
     setLoading(true);
     const getProduct: any = await get_products(Route.params.Id);
     setData(getProduct);
+    console.log(getProduct);
     setLoading(false);
   };
+  //waish list
   const addToWishList = async () => {
-    let toke = await AsyncStorage.getItem('token');
-    if (toke) {
-      setWishListFlag(!wishListFlag);
-      if (wishListFlag) {
+    let token = await AsyncStorage.getItem('token');
+    if (token) {
+      if (data?.isInWishList) {
         const res = await remove_to_WishList(data?.productId);
         if (res.status == 200) {
+          getData();
           Toast.show({
             type: 'success',
             text1: res.data.message + '.😒',
             visibilityTime: 2000,
           });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: res.data.message,
+            visibilityTime: 3000,
+          });
         }
       } else {
         const res = await add_to_WishList(data?.productId);
         if (res.status == 200) {
+          getData();
           Toast.show({
             type: 'success',
             text1: res.data.message + '.😍',
             visibilityTime: 2000,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: res.data.message,
+            visibilityTime: 3000,
           });
         }
       }
@@ -60,8 +74,29 @@ export default function Product_cart() {
       nav.navigate('SignIn');
     }
   };
-  const addToCart = () => {
-    context.isAdd_To_Cart_State(context.addToCartState + quantity);
+  // add ro cart
+  const addToCart = async () => {
+    let token = await AsyncStorage.getItem('token');
+    if (token) {
+      const res: any = await add_to_Cart(data?.productId, quantity);
+      if (res.status == 200) {
+        context.isAdd_To_Cart_State(context.addToCartState + quantity);
+        Toast.show({
+          type: 'success',
+          text1: res.data.message + '.😍',
+          visibilityTime: 3000,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: res.data.message,
+          visibilityTime: 3000,
+        });
+      }
+    } else {
+      AsyncStorage.clear();
+      nav.navigate('SignIn');
+    }
   };
   return (
     <>
@@ -73,7 +108,7 @@ export default function Product_cart() {
         <ScrollView style={style.mainContainer}>
           <View style={style.Contianer}>
             {data?.productMedias?.map((val: any, index: any) => (
-              <View>
+              <View key={index}>
                 <Image source={{uri: val.imgUrl}} style={style.mainImg} />
               </View>
             ))}
@@ -81,7 +116,7 @@ export default function Product_cart() {
             <Text style={style.highlightText}>Highlight's</Text>
             <Text
               style={[style.highlightText, {fontSize: Theme.fontSize.size12}]}>
-              {data?.highLight}
+              {data?.highLight?.replace(regex, '')}
             </Text>
             <View style={style.line} />
             <View
@@ -89,7 +124,7 @@ export default function Product_cart() {
               <Text style={style.Price}>Rs: {data?.price}</Text>
               <View style={{flexDirection: 'row', gap: 10}}>
                 <TouchableOpacity onPress={() => addToWishList()}>
-                  {wishListFlag ? (
+                  {data?.isInWishList ? (
                     <Image
                       source={require('../../assets/images/favourite1.png')}
                     />
@@ -180,6 +215,21 @@ export default function Product_cart() {
                 </View>
               </View>
             </View>
+          </View>
+          <View style={{marginBottom: 10}} />
+          <View style={style.Contianer}>
+            <Text style={style.deliveryText}>Product Description</Text>
+            <Text style={style.Price}>
+              {data?.description?.replace(regex, '')}
+            </Text>
+            {data?.descriptionMedias?.map((val: any, index: any) => (
+              <View key={index}>
+                <Image
+                  source={{uri: val.imgUrl}}
+                  style={[style.mainImg, {marginTop: Theme.fontSize.size10}]}
+                />
+              </View>
+            ))}
           </View>
           <View style={{marginBottom: 50}} />
         </ScrollView>

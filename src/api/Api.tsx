@@ -29,12 +29,19 @@ API.interceptors.response.use(
     return response;
   },
   async function (error: any) {
-    let errors = JSON.stringify(error.response.status)
+    let errors = JSON.stringify(error.response.status);
+    let messg = JSON.stringify(error.response.data.message);
     if (errors === '401') {
       console.log('API Error');
       const res = {
         ...error,
         data: {status: 401, ...error},
+      };
+      return res;
+    } else if (errors === '400') {
+      const res = {
+        ...error,
+        data: {status: 400, message: messg},
       };
       return res;
     }

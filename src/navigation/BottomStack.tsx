@@ -1,10 +1,10 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import Home from '../screen/home/Home';
+import Home from '../screen/bottomTab/home/Home';
 import BottomTabs from './BottomTabs';
 import Main_categori_details from '../screen/main_Categori_details/Main_categori_details';
 import Main_Sub_Categori from '../screen/main_Categori_details/main_sub_categori.tsx/Main_Sub_Categori';
-import Product_cart from '../screen/product_cart/Product_cart';
+import Product_cart from '../screen/product_details/Product_Details';
 
 export default function BottomStack() {
   const Stack = createStackNavigator();

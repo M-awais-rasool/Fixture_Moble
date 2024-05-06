@@ -9,3 +9,10 @@ export const add_to_WishList = async (id: any) => {
   const res: any = await API.post(`WishList/add-to-WishList/${id}`);
   return res;
 };
+
+export const add_to_Cart = async (id: any, Q: any) => {
+  const res: any = await API.post(
+    `Cart/add-product-to-cart/${id}?productQuantity=${Q}`,
+  );
+  return res;
+};

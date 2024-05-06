@@ -6,7 +6,7 @@ export default function Buttons(props: any) {
   return (
     <View>
       <TouchableOpacity onPress={()=>props.onPress()}>
-        <Text style={style.btn}>{props.title}</Text>
+        <Text style={[style.btn,props.style]}>{props.title}</Text>
       </TouchableOpacity>
     </View>
   );

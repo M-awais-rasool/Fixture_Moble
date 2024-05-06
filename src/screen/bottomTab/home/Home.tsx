@@ -1,11 +1,11 @@
 import {View, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import Header from '../../component/header/Header';
+import Header from '../../../component/header/Header';
 import {
   get_mainCategories_detail,
   get_papular_products,
-} from '../../api/services/Get';
-import Slider from '../../component/slider/Slider';
+} from '../../../api/services/Get';
+import Slider from '../../../component/slider/Slider';
 import style from './style';
 import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';

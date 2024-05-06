@@ -1,9 +1,9 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import WishList from '../screen/wishList/WishList';
-import MessageScreen from '../screen/messageScreen/MessageScreen';
-import UserProfile from '../screen/userProfile/UserProfile';
+import WishList from '../screen/bottomTab/wishList/WishList';
+import MessageScreen from '../screen/bottomTab/messageScreen/MessageScreen';
+import UserProfile from '../screen/bottomTab/userProfile/UserProfile';
 import BottomStack from './BottomStack';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../component/header/Header';

@@ -7,7 +7,9 @@ const Theme = {
     lightBlack: '#595959',
     lightRed:'#D93B3B',
     borderColor:'#DFDFDF',
-    
+    blueColor:'#3085d6',
+    redColor:'#dd3333',
+     
     BtnColor:'#F29900',
     bgColor1: '#FFFFFF',
   },

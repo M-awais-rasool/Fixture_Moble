@@ -1,0 +1,68 @@
+import {Dimensions, StyleSheet} from 'react-native';
+import Theme from '../../theme/Theme';
+
+const windowWidth = Dimensions.get('window').width;
+
+const style = StyleSheet.create({
+  modalContainer: {
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    width: windowWidth / 1.2,
+    minHeight: windowWidth / 1.2,
+  },
+  modalInnerContainer: {
+    height: Theme.fontSize.size55,
+    backgroundColor: Theme.colors.black,
+    width: windowWidth / 1.2,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    // backgroundColor: '#FFFFFF',
+    // borderRadius: Theme.fontSize.size20,
+  },
+  passwordText: {
+    fontWeight: '800',
+    fontSize: Theme.fontSize.size16,
+    color: Theme.colors.white,
+  },
+  flexRow: {
+    flexDirection: 'row',
+    gap: Theme.fontSize.size30,
+    alignSelf: 'center',
+  },
+  updateBtn: {
+    paddingHorizontal: Theme.fontSize.size20,
+    fontSize: Theme.fontSize.size15,
+    fontWeight: '700',
+  },
+  cancelBtn: {
+    backgroundColor: Theme.colors.white,
+    borderWidth: 1,
+    color: Theme.colors.black,
+    paddingHorizontal: Theme.fontSize.size20,
+    fontSize: Theme.fontSize.size15,
+    fontWeight: '700',
+    borderColor: Theme.colors.BtnColor,
+  },
+  loading: {
+    width: '100%',
+    height: 150,
+    alignSelf: 'center',
+  },
+  sureText: {
+    fontSize: Theme.fontSize.size16,
+    fontWeight: '700',
+    color: Theme.colors.black,
+    textAlign: 'center',
+  },
+  removeBtn: {
+    backgroundColor: Theme.colors.blueColor,
+    borderWidth: 1,
+    paddingHorizontal: Theme.fontSize.size20,
+    fontSize: Theme.fontSize.size15,
+    fontWeight: '700',
+    borderColor: Theme.colors.blueColor,
+  },
+});
+
+export default style;

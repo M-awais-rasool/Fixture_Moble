@@ -28,3 +28,8 @@ export async function get_WishLit_products() {
   const res = await API.get('WishList/get-user-WishList-products');
   return res.data.data;
 }
+
+export async function getUserData() {
+  const res = await API.get('User/get-user-profile');
+  return res.data.data;
+}

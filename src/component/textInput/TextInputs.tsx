@@ -13,6 +13,7 @@ export default function TextInputs(props: any) {
         keyboardType={props.keyboardType}
         maxLength={props.maxLength}
         value={props.value}
+        readOnly={props.readOnly}
       />
       <View style={style.icon}>{props.icon}</View>
     </View>

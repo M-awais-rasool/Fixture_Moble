@@ -1,7 +1,7 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {FlatList} from 'react-native';
-import PapularProduct_Cart from '../papularProduct_cart/PapularProduct_Cart';
+import PapularProduct_Cart from './papularProduct_cart/PapularProduct_Cart';
 import {TouchableOpacity} from 'react-native';
 
 export default function Slider(props: any) {

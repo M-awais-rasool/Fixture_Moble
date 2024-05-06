@@ -1,6 +1,6 @@
 import {View, Text, Image} from 'react-native';
 import React from 'react';
-import style from './style';
+import style from '../style';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 export default function PapularProduct_Cart(props: any) {
   return (
