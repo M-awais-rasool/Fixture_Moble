@@ -110,6 +110,8 @@ export default function WishList() {
                 setIsVisible={setIsVisible}
                 functionCall={removeToWishList}
                 type={'warnning'}
+                lebel={"You won't be remove to wishlist!"}
+                btnLebel={'Yes, remove it!'}
               />
             </ScrollView>
           )}

@@ -37,17 +37,17 @@ const style = StyleSheet.create({
   line: {
     width: '100%',
     height: 1,
-    backgroundColor: Theme.colors.lightBlack,
+    backgroundColor: Theme.colors.disable,
     marginVertical: Theme.fontSize.size5,
   },
   Price: {
     fontSize: Theme.fontSize.size13,
-    color: Theme.colors.lightBlack,
+    color: Theme.colors.disable,
     fontWeight: '500',
   },
   DiccountText: {
     fontSize: Theme.fontSize.size13,
-    color: Theme.colors.lightBlack,
+    color: Theme.colors.disable,
     fontWeight: '500',
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',
@@ -71,7 +71,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: Theme.fontSize.size50,
-    borderColor: Theme.colors.lightBlack,
+    borderColor: Theme.colors.disable,
   },
   buyBtn: {
     padding: Theme.fontSize.size10,
@@ -112,7 +112,7 @@ const style = StyleSheet.create({
     marginTop: Theme.fontSize.size5,
     height: Theme.fontSize.size90,
     width: 1,
-    backgroundColor: Theme.colors.lightBlack,
+    backgroundColor: Theme.colors.disable,
   },
 });
 

@@ -60,10 +60,15 @@ const style = StyleSheet.create({
   line: {
     width: '100%',
     height: 1,
-    backgroundColor: Theme.colors.lightBlack,
+    backgroundColor: Theme.colors.disable,
     marginTop: Theme.fontSize.size15,
     marginBottom: -Theme.fontSize.size7,
   },
+  flexRow:{
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems:'center'
+  }
 });
 
 export default style;

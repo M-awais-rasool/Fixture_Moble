@@ -1,7 +1,7 @@
 import {View, Text, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import Slider from '../../component/slider/Slider';
+import Slider from '../../component/sliders/Slider';
 import style from './style';
 import {ScrollView} from 'react-native';
 import {TouchableOpacity} from 'react-native';
@@ -40,6 +40,7 @@ export default function Main_categori_details() {
           {Route.params?.name}
         </Text>
         <Slider
+        type={''}
           data={Route.params.data}
           onPress={(data: any) => {
             changeData(data);

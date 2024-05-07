@@ -2,7 +2,7 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import WishList from '../screen/bottomTab/wishList/WishList';
-import MessageScreen from '../screen/bottomTab/messageScreen/MessageScreen';
+import MessageScreen from '../screen/bottomTab/search/SearchScreen';
 import UserProfile from '../screen/bottomTab/userProfile/UserProfile';
 import BottomStack from './BottomStack';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -79,11 +79,11 @@ export default function BottomTabs() {
                 <View>
                   {focused ? (
                     <Image
-                      source={require('../assets/images/Vector1.png')}
+                      source={require('../assets/images/bottomSearch.png')}
                       style={{tintColor: '#F29900'}}
                     />
                   ) : (
-                    <Image source={require('../assets/images/Vector1.png')} />
+                    <Image source={require('../assets/images/bottomSearch.png')} />
                   )}
                 </View>
               );

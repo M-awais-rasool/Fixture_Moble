@@ -8,12 +8,15 @@ import {getUserData} from '../../../api/services/Get';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PopUp from '../../../component/popUp/PopUp';
+import PofileInfo from './PofileInfo';
+import AddressInfo from './AddressInfo';
 
 export default function UserProfile() {
   const [data, setdata] = useState<any>();
   const nav: any = useNavigation();
   const [token, setToken] = useState();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isLogout, setIsLogout] = useState(false);
+  const [pageChange,setPageChange] = useState(1)
   const [btn, setBtn] = useState([
     {
       id: 1,
@@ -45,6 +48,7 @@ export default function UserProfile() {
     for (let i = 0; i < btn?.length; i++) {
       if (btn[i].id == itemId) {
         btn[i].isActive = true;
+        setPageChange(btn[i].id)
       } else {
         btn[i].isActive = false;
       }
@@ -73,7 +77,8 @@ export default function UserProfile() {
             <Buttons
               title={'Logout'}
               onPress={() => {
-                logOut();
+                setIsLogout(true);
+                // logOut();
               }}
               style={style.logOutbtn}
             />
@@ -108,47 +113,19 @@ export default function UserProfile() {
             </ScrollView>
           </View>
           <Text style={style.mainTextHeading}>Manage My Account</Text>
-          <View style={style.Contianer}>
-            <View style={style.contentCenter}>
-              {data?.profileImageUrl != null ? (
-                <Image
-                  source={{uri: data?.profileImageUrl}}
-                  style={style.profileImg}
-                />
-              ) : (
-                <Image
-                  source={require('../../../assets/images/defualtProfile.jpg')}
-                  style={style.profileImg}
-                />
-              )}
-            </View>
-            <View style={{rowGap: 10}}>
-              <TextInputs
-                lebel={'First Name'}
-                value={data?.firstName}
-                readOnly={true}
-              />
-              <TextInputs
-                lebel={'Last Name'}
-                value={data?.lastName}
-                readOnly={true}
-              />
-            </View>
-            <View style={style.contentCenter}>
-              <Buttons
-                title={'Update Profile'}
-                onPress={() => {}}
-                style={style.logOutbtn}
-              />
-              <View style={style.line} />
-              <Buttons
-                title={'Change Password'}
-                onPress={() => {setIsVisible(true)}}
-                style={style.logOutbtn}
-              />
-            </View>
-          </View>
-          <PopUp setIsVisible={setIsVisible} isVisible={isVisible} />
+          {
+            pageChange == 1 ? <PofileInfo data={data} /> :
+           <AddressInfo/>
+          }
+          
+          <PopUp
+            isVisible={isLogout}
+            setIsVisible={setIsLogout}
+            functionCall={logOut}
+            type={'warnning'}
+            lebel={'To log out of your account?'}
+            btnLebel={'Yes'}
+          />
           <View style={{marginBottom: 30}} />
         </ScrollView>
       )}

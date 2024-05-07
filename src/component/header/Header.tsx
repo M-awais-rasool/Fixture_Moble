@@ -1,15 +1,30 @@
-import {View,ImageBackground, Image, Dimensions, Text} from 'react-native';
-import React from 'react';
+import {
+  View,
+  ImageBackground,
+  Image,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useEffect} from 'react';
 import style from './style';
 import TextInputs from '../textInput/TextInputs';
-import { useGlobalContext } from '../context.tsx/Context';
-import { useRoute } from '@react-navigation/native';
+import {useGlobalContext} from '../context.tsx/Context';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {get_products_quantity} from '../../api/services/Get';
 const windowWidth = Dimensions.get('window').width;
 
 export default function Header() {
-  const context :any= useGlobalContext();
+  const context: any = useGlobalContext();
   const Route = useRoute();
-  // console.log('Route.name  '+Route.name);
+  const nav: any = useNavigation();
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    const res = await get_products_quantity();
+    context.isAdd_To_Cart_State(res);
+  };
   return (
     <View style={{height: 103}}>
       <ImageBackground
@@ -18,10 +33,17 @@ export default function Header() {
         <View style={style.container}>
           <Image source={require('../../assets/images/notification-add.png')} />
           <View>
-          <Image source={require('../../assets/images/shopping-cart.png')}/>
-        <View style={style.addTocartContainer}>
-        <Text style={style.addToCartText}>{context.addToCartState}</Text>
-        </View>
+            <TouchableOpacity
+              onPress={() => {
+                nav.navigate('Add_To_Cart');
+              }}>
+              <Image
+                source={require('../../assets/images/shopping-cart.png')}
+              />
+            </TouchableOpacity>
+            <View style={style.addTocartContainer}>
+              <Text style={style.addToCartText}>{context.addToCartState}</Text>
+            </View>
           </View>
         </View>
         <View style={{alignItems: 'center', marginTop: -6}}>

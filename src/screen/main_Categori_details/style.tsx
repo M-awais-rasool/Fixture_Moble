@@ -66,12 +66,12 @@ const style = StyleSheet.create({
   },
   subCategoriPrice: {
     fontSize: Theme.fontSize.size13,
-    color: Theme.colors.lightBlack,
+    color: Theme.colors.disable,
     fontWeight: '500',
   },
   subCategoriDiccountText: {
     fontSize: Theme.fontSize.size13,
-    color: Theme.colors.lightBlack,
+    color: Theme.colors.disable,
     fontWeight: '500',
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import Theme from '../../../theme/Theme';
+import Theme from '../../theme/Theme';
 
 const style = StyleSheet.create({
   mainContainer: {
@@ -23,7 +23,7 @@ const style = StyleSheet.create({
     elevation: 2,
     marginVertical: Theme.fontSize.size10,
     flexDirection: 'row',
-    gap: 10,
+    gap: Theme.fontSize.size10,
   },
   img: {
     width: Theme.fontSize.size110,
@@ -34,13 +34,12 @@ const style = StyleSheet.create({
     fontSize: Theme.fontSize.size14,
     fontWeight: '600',
     color: Theme.colors.black,
+    marginTop: -Theme.fontSize.size10,
   },
   wishlistContainer: {
-    width: '100%',
-    justifyContent: 'center',
-    alignSelf: 'flex-end',
-    flexDirection: 'row',
-    gap: 15,
+    width: '68%',
+    alignItems: 'flex-end',
+    marginTop: -Theme.fontSize.size15,
   },
   emptyText: {
     fontSize: Theme.fontSize.size14,
@@ -77,6 +76,46 @@ const style = StyleSheet.create({
     marginTop: Theme.fontSize.size3,
     alignItems: 'center',
   },
+  btn: {
+    fontSize: Theme.fontSize.size14,
+    color: Theme.colors.black,
+    borderColor: Theme.colors.BtnColor,
+    backgroundColor: Theme.colors.white,
+    borderWidth: 1,
+    borderRadius: Theme.fontSize.size10,
+    fontWeight: '600',
+    padding: Theme.fontSize.size10,
+    paddingHorizontal: Theme.fontSize.size20,
+  },
+  highlightText: {
+    fontSize: Theme.fontSize.size14,
+    fontWeight: '500',
+    color: Theme.colors.black,
+  },
+  quantityBox: {
+    width: Theme.fontSize.size35,
+    height: Theme.fontSize.size20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderRadius: Theme.fontSize.size50,
+    borderColor: Theme.colors.disable,
+  },
+  quantityContainer: {
+    flexDirection: 'row',
+    gap: Theme.fontSize.size5,
+    alignItems: 'center',
+  },
+  flexRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: Theme.fontSize.size20,
+  },
+  line:{
+    width:'100%',
+    height:1,
+    backgroundColor:Theme.colors.disable,
+  }
 });
 
 export default style;

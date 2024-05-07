@@ -6,6 +6,7 @@ import style from '../style';
 import {ScrollView} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import Loader from '../../../component/loader/Loader';
+import Product_cart from '../../../component/product_cart/Product_cart';
 
 export default function Main_Sub_Categori() {
   const Route: any = useRoute();
@@ -35,44 +36,12 @@ export default function Main_Sub_Categori() {
         <View style={style.subCategoriContainer}>
           {getData.length > 0 ? (
             getData.map((val: any, index: any) => (
-              <TouchableOpacity
-                onPress={() =>
-                  nav.navigate('Product_cart', {Id: val.productId})
-                }
-                key={index}
-                style={style.subCategoriInnerContainer}>
-                <Image source={{uri: val.image}} style={style.subCategoriImg} />
-                <View style={{padding: 5}}>
-                  <Text style={style.subCategoriText} numberOfLines={1}>
-                    {val.productName}
-                  </Text>
-                  {val.discountPrice > 0 && (
-                    <View style={style.rowContainer}>
-                      <Text style={style.subCategoriDiccountText}>
-                        Rs: {val.discountPrice}
-                      </Text>
-                      <Text style={style.subCategoriDiccountOffText}>
-                        {val.discount}% Off
-                      </Text>
-                    </View>
-                  )}
-                  <View
-                    style={[
-                      style.rowContainer,
-                      {
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      },
-                    ]}>
-                    <Text style={style.subCategoriPrice}>Rs: {val.price}</Text>
-                    <TouchableOpacity>
-                      <Image
-                        source={require('../../../assets/images/add-shopping-cart.png')}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </TouchableOpacity>
+              <Product_cart
+                data={val}
+                onPress={() => {
+                  nav.navigate('Product_Details', {Id: val.productId});
+                }}
+              />
             ))
           ) : (
             <View style={{alignItems: 'center', rowGap: 10}}>

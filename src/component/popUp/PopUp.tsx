@@ -33,11 +33,11 @@ export default function PopUp(props: any) {
                 style.sureText,
                 {fontSize: 14, fontWeight: '500', marginTop: 10},
               ]}>
-              You won't be remove to wishlist!
+                {props.lebel}
             </Text>
             <View style={style.flexRow}>
               <Buttons
-                title={'Yes, remove it!'}
+                title={props.btnLebel}
                 onPress={() => {
                   props.functionCall();
                   props.setIsVisible(false);

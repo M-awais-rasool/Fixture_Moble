@@ -16,11 +16,19 @@ const style = StyleSheet.create({
     fontSize: Theme.fontSize.size16,
     fontWeight: '700',
     color: 'black',
+    textAlign:'center',
+    marginVertical:10
   },
   viewText: {
     fontSize: 14,
     fontWeight: '500',
     color: 'black',
+  },
+  productContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: 10,
   },
 });
 

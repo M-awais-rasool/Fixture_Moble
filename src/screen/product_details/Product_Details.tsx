@@ -14,11 +14,12 @@ import {useGlobalContext} from '../../component/context.tsx/Context';
 import Buttons from '../../component/buttons/Buttons';
 const windowWidth = Dimensions.get('window').width;
 
-export default function Product_cart() {
+export default function Product_Details() {
   const Route: any = useRoute();
   const [quantity, setQuantity] = useState(1);
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const [mainImg, setMainImg] = useState<any>();
   const nav: any = useNavigation();
   const context: any = useGlobalContext();
   const regex = /(<([^>]+)>)/gi;
@@ -29,7 +30,14 @@ export default function Product_cart() {
     setLoading(true);
     const getProduct: any = await get_products(Route.params.Id);
     setData(getProduct);
-    console.log(getProduct);
+    getProduct?.productMedias?.map((val: any, index: any) => {
+      if (index < 1) {
+        setMainImg(val.imgUrl);
+      } else if (val.isThumbNail == true) {
+        setMainImg(null);
+        setMainImg(val.imgUrl);
+      }
+    });
     setLoading(false);
   };
   //waish list
@@ -74,7 +82,7 @@ export default function Product_cart() {
       nav.navigate('SignIn');
     }
   };
-  // add ro cart
+  // add To cart
   const addToCart = async () => {
     let token = await AsyncStorage.getItem('token');
     if (token) {
@@ -98,6 +106,7 @@ export default function Product_cart() {
       nav.navigate('SignIn');
     }
   };
+
   return (
     <>
       {loading ? (
@@ -107,11 +116,36 @@ export default function Product_cart() {
       ) : (
         <ScrollView style={style.mainContainer}>
           <View style={style.Contianer}>
-            {data?.productMedias?.map((val: any, index: any) => (
-              <View key={index}>
-                <Image source={{uri: val.imgUrl}} style={style.mainImg} />
-              </View>
-            ))}
+            <Image source={{uri: mainImg}} style={style.mainImg} />
+            <View
+              style={[
+                style.deliveryContainer,
+                {
+                  gap: Theme.fontSize.size15,
+                  marginTop: Theme.fontSize.size10,
+                  flexWrap: 'wrap',
+                },
+              ]}>
+              {data?.productMedias?.map(
+                (val: any, index: any) =>
+                  val.isThumbNail == null && (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => {
+                        setMainImg(val.imgUrl);
+                      }}>
+                      <Image
+                        source={{uri: val.imgUrl}}
+                        style={{
+                          width: Theme.fontSize.size70,
+                          height: Theme.fontSize.size70,
+                          borderRadius: Theme.fontSize.size10,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  ),
+              )}
+            </View>
             <Text style={style.mainTextHeading}>{data?.productName}</Text>
             <Text style={style.highlightText}>Highlight's</Text>
             <Text
@@ -122,7 +156,7 @@ export default function Product_cart() {
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <Text style={style.Price}>Rs: {data?.price}</Text>
-              <View style={{flexDirection: 'row', gap: 10}}>
+              <View style={{flexDirection: 'row', gap: Theme.fontSize.size10}}>
                 <TouchableOpacity onPress={() => addToWishList()}>
                   {data?.isInWishList ? (
                     <Image
@@ -163,7 +197,7 @@ export default function Product_cart() {
                 <Text
                   style={[
                     style.highlightText,
-                    {fontWeight: '800', fontSize: 18},
+                    {fontWeight: '800', fontSize: Theme.fontSize.size18},
                   ]}>
                   -
                 </Text>
@@ -175,7 +209,9 @@ export default function Product_cart() {
               </View>
               <TouchableOpacity
                 onPress={() => {
-                  setQuantity(quantity + 1);
+                  if (quantity < data?.quantity) {
+                    setQuantity(quantity + 1);
+                  }
                 }}>
                 <Text
                   style={[
@@ -187,7 +223,12 @@ export default function Product_cart() {
               </TouchableOpacity>
             </View>
             <View style={{alignItems: 'center'}}>
-              <Buttons title={'Buy Now'} onPress={() => {}} />
+              <Buttons
+                title={'Buy Now'}
+                onPress={() => {
+                  nav.navigate('BuyNow');
+                }}
+              />
             </View>
           </View>
           <View style={{marginBottom: 10}} />
@@ -215,6 +256,14 @@ export default function Product_cart() {
                 </View>
               </View>
             </View>
+            {data?.warranty > 0 && (
+              <View>
+                <Text
+                  style={[style.Price, {textAlign: 'center', marginTop: 10}]}>
+                  Service{'   '}1 Year Brand Warranty
+                </Text>
+              </View>
+            )}
           </View>
           <View style={{marginBottom: 10}} />
           <View style={style.Contianer}>

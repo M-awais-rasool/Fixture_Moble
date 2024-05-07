@@ -2,13 +2,14 @@ import React, {useContext, useState} from 'react';
 import {createContext} from 'react';
 // import AsyncStorage from '@react-native-community/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import {get_products_quantity} from '../../api/services/Get';
 
 const CreateContex = createContext({});
 
 const GlobelContex = (props: any) => {
   const [addToCartState, setAddToCartState] = useState<any>(0);
 
-  const isAdd_To_Cart_State = (item: any) => {
+  const isAdd_To_Cart_State = async (item: any) => {
     setAddToCartState(item);
   };
 

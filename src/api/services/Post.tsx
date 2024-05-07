@@ -16,3 +16,8 @@ export const add_to_Cart = async (id: any, Q: any) => {
   );
   return res;
 };
+
+export const add_to_Cart_Quantity = async (id: any) => {
+  const res: any = await API.post(`Cart/add-to-cart/${id}`);
+  return res;
+};
