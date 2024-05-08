@@ -68,5 +68,11 @@ export async function get_default_Shipping_address() {
 
 export async function get_product_order_summary(id:any ,Q:any) {
   const res = await API.get(`Home/get-product-order-summary/${id}?quantity=${Q}`);
+  return res.data;
+}
+
+
+export async function get_search_product(key:any) {
+  const res = await API.get(`Home/get-products-by-search/${key}`);
   return res.data.data;
 }

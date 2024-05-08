@@ -10,18 +10,18 @@ const style = StyleSheet.create({
   Contianer: {
     borderRadius: Theme.fontSize.size10,
     borderColor: Theme.colors.borderColor,
-    borderWidth: 1,
+    borderWidth: Theme.fontSize.size1,
     padding: Theme.fontSize.size10,
     backgroundColor: Theme.colors.white,
-    elevation: 2,
+    elevation: Theme.fontSize.size2,
   },
   mainImg: {
     width: '100%',
     // height: 200,
     // objectFit:'fill',
-    aspectRatio: 5 / 3.5,
-    borderTopRightRadius: 5,
-    borderTopLeftRadius: 5,
+    aspectRatio: Theme.fontSize.size5 / 3.5,
+    borderTopRightRadius: Theme.fontSize.size5,
+    borderTopLeftRadius: Theme.fontSize.size5,
   },
   mainTextHeading: {
     fontSize: Theme.fontSize.size16,
@@ -36,7 +36,7 @@ const style = StyleSheet.create({
   },
   line: {
     width: '100%',
-    height: 1,
+    height: Theme.fontSize.size1,
     backgroundColor: Theme.colors.disable,
     marginVertical: Theme.fontSize.size5,
   },
@@ -60,7 +60,7 @@ const style = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
-    gap: 5,
+    gap:Theme.fontSize.size5,
     marginTop: Theme.fontSize.size3,
     alignItems: 'center',
   },
@@ -69,7 +69,7 @@ const style = StyleSheet.create({
     height: Theme.fontSize.size20,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
+    borderWidth: Theme.fontSize.size1,
     borderRadius: Theme.fontSize.size50,
     borderColor: Theme.colors.disable,
   },
@@ -97,7 +97,7 @@ const style = StyleSheet.create({
   deliveryInnerContainer1: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 3,
+    gap: Theme.fontSize.size3,
     flexWrap: 'wrap',
   },
   deliveryInnerContainer2: {
@@ -105,12 +105,12 @@ const style = StyleSheet.create({
     // flexDirection:'row'
     paddingHorizontal: Theme.fontSize.size10,
     paddingTop: Theme.fontSize.size10,
-    rowGap: 10,
+    rowGap:Theme.fontSize.size10,
   },
   line1: {
     marginTop: Theme.fontSize.size5,
     height: Theme.fontSize.size90,
-    width: 1,
+    width:Theme.fontSize.size1,
     backgroundColor: Theme.colors.disable,
   },
 });

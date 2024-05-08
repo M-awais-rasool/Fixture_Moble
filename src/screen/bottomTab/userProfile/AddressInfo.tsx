@@ -155,12 +155,6 @@ export default function AddressInfo() {
                 ) : (
                   <Text style={style.emailError}>Email is not valid</Text>
                 )}
-                <TextInputs
-                  lebel={'Address'}
-                  value={'Pakistan'}
-                  readOnly={true}
-                  style={{opacity: 0.5}}
-                />
                 <DropDown
                   Textlebel={'Select Your State'}
                   Data={data}
@@ -252,7 +246,7 @@ export default function AddressInfo() {
                       <Text style={style.nameHeading}>{val.phoneNo}</Text>
                     </View>
                     <View style={style.addressContainer}>
-                      <Text style={style.nameHeading}>Defualt:</Text>
+                      <Text style={style.nameHeading}>Default:</Text>
                       {val.status ? (
                         <Buttons
                           title={'Selected'}

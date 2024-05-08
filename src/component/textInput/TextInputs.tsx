@@ -24,8 +24,8 @@ export default function TextInputs(props: any) {
 
 const style = StyleSheet.create({
   input: {
-    borderWidth: 1,
-    borderRadius:Theme.fontSize.size5,
+    borderWidth: Theme.fontSize.size1,
+    borderRadius: Theme.fontSize.size5,
     borderColor: '#606060',
     height: Theme.fontSize.size40,
     fontSize: Theme.fontSize.size14,
@@ -39,7 +39,7 @@ const style = StyleSheet.create({
     fontWeight: '500',
     color: 'black',
     marginLeft: Theme.fontSize.size5,
-    marginBottom: 2,
+    marginBottom: Theme.fontSize.size2,
   },
   icon: {
     position: 'absolute',

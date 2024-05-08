@@ -14,6 +14,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import PopUp from '../../../component/popUp/PopUp';
 import PofileInfo from './PofileInfo';
 import AddressInfo from './AddressInfo';
+import ReturnsInfo from './ReturnsInfo';
+import CancellationInfo from './CancellationInfo';
+import Loader from '../../../component/loader/Loader';
 
 export default function UserProfile() {
   const Route: any = useRoute();
@@ -22,6 +25,8 @@ export default function UserProfile() {
   const [token, setToken] = useState();
   const [isLogout, setIsLogout] = useState(false);
   const [pageChange, setPageChange] = useState(1);
+  const [loading, setLoading] = useState(false);
+
   const [btn, setBtn] = useState([
     {
       id: 1,
@@ -64,11 +69,13 @@ export default function UserProfile() {
     setBtn([...btn]);
   };
   const getData = async () => {
+    setLoading(true);
     let Token: any = await AsyncStorage.getItem('token');
     setToken(Token);
     if (Token) {
       const res = await getUserData();
       setdata(res);
+      setLoading(false);
     } else {
       nav.replace('SignIn');
     }
@@ -120,9 +127,24 @@ export default function UserProfile() {
               ))}
             </ScrollView>
           </View>
-          <Text style={style.mainTextHeading}>Manage My Account</Text>
-          {pageChange == 1 ? <PofileInfo data={data} /> : <AddressInfo />}
-
+          {loading ? (
+            <View style={style.mainContainer}>
+              <Loader />
+            </View>
+          ) : (
+            <>
+              <Text style={style.mainTextHeading}>Manage My Account</Text>
+              {pageChange == 1 ? (
+                <PofileInfo data={data} />
+              ) : pageChange == 2 ? (
+                <ReturnsInfo />
+              ) : pageChange == 3 ? (
+                <CancellationInfo />
+              ) : (
+                <AddressInfo />
+              )}
+            </>
+          )}
           <PopUp
             isVisible={isLogout}
             setIsVisible={setIsLogout}

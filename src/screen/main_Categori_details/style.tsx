@@ -6,7 +6,7 @@ const style = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#FFFFFF',
     height: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: Theme.fontSize.size20,
   },
   mainTextHeading: {
     fontSize: Theme.fontSize.size16,
@@ -16,48 +16,50 @@ const style = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    padding: 10,
-    justifyContent:'center'
+    padding: Theme.fontSize.size10,
+    justifyContent: 'center',
   },
   innerContainer: {
-    margin: 10,
-    elevation: 3,
+    margin: Theme.fontSize.size10,
+    elevation: Theme.fontSize.size3,
+    backgroundColor: Theme.colors.white,
+    borderRadius: Theme.fontSize.size5,
     // alignItems:'center',
     // justifyContent:'center'
   },
   img: {
-    width: 75,
-    height: 75,
-    borderRadius: 5,
+    width: Theme.fontSize.size75,
+    height: Theme.fontSize.size75,
+    borderRadius: Theme.fontSize.size5,
   },
   containerText: {
     textAlign: 'center',
-    marginTop: 5,
+    marginTop: Theme.fontSize.size5,
     fontSize: Theme.fontSize.size13,
     fontWeight: '600',
     color: 'black',
-    width: 60,
+    width: Theme.fontSize.size60,
   },
   subCategoriContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    padding: 10,
+    padding: Theme.fontSize.size10,
     justifyContent: 'center',
   },
   subCategoriInnerContainer: {
     backgroundColor: '#FAFAFA',
     // padding: 5,
-    margin: 5,
+    margin: Theme.fontSize.size5,
     overflow: 'hidden',
-    width: windowWidth/2.5,
-    elevation: 3,
-    borderRadius: 5,
-    borderWidth:1,
-    borderColor:Theme.colors.borderColor
+    width: windowWidth / 2.5,
+    elevation: Theme.fontSize.size3,
+    borderRadius: Theme.fontSize.size5,
+    borderWidth: Theme.fontSize.size1,
+    borderColor: Theme.colors.borderColor,
   },
   subCategoriImg: {
     width: '100%',
-    height: 100,
+    height: Theme.fontSize.size100,
   },
   subCategoriText: {
     fontSize: Theme.fontSize.size13,
@@ -84,21 +86,20 @@ const style = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
-    gap: 5,
+    gap: Theme.fontSize.size5,
     marginTop: Theme.fontSize.size3,
   },
-  backBtn:{
-    width:140,
-    height:30,
-    backgroundColor:Theme.colors.BtnColor,
-    color:'white',
-    textAlign:'center',
-    textAlignVertical:'center',
-    borderRadius:10,
-    fontSize:Theme.fontSize.size14,
-    fontWeight:'600',
-
-  }
+  backBtn: {
+    width: Theme.fontSize.size140,
+    height: Theme.fontSize.size30,
+    backgroundColor: Theme.colors.BtnColor,
+    color: 'white',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    borderRadius: Theme.fontSize.size10,
+    fontSize: Theme.fontSize.size14,
+    fontWeight: '600',
+  },
 });
 
 export default style;

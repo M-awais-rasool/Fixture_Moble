@@ -1,5 +1,6 @@
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import React from 'react';
+import Theme from '../../theme/Theme';
 
 export default function GoogleBtn(props: any) {
   return (
@@ -15,18 +16,18 @@ export default function GoogleBtn(props: any) {
 const style = StyleSheet.create({
   googleBtn: {
     flexDirection: 'row',
-    borderWidth: 1,
-    padding: 10,
+    borderWidth: Theme.fontSize.size1,
+    padding: Theme.fontSize.size10,
     alignItems: 'center',
-    borderRadius: 5,
-    paddingLeft: 25,
+    borderRadius: Theme.fontSize.size5,
+    paddingLeft: Theme.fontSize.size25,
     borderColor: '#606060',
-    height:40
+    height: Theme.fontSize.size40,
   },
   googleText: {
-    fontSize: 16,
+    fontSize: Theme.fontSize.size16,
     fontWeight: '700',
-    color: 'black',
-    marginLeft: 35,
+    color: Theme.colors.black,
+    marginLeft: Theme.fontSize.size35,
   },
 });

@@ -7,6 +7,7 @@ import PopUp from '../../../component/popUp/PopUp';
 
 export default function PofileInfo(props: any) {
   const [isVisible, setIsVisible] = useState(false);
+
   return (
     <View>
       <View style={style.Contianer}>

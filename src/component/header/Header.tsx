@@ -6,18 +6,20 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './style';
 import TextInputs from '../textInput/TextInputs';
 import {useGlobalContext} from '../context.tsx/Context';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {get_products_quantity} from '../../api/services/Get';
+import { Screen } from 'react-native-screens';
 const windowWidth = Dimensions.get('window').width;
 
 export default function Header() {
   const context: any = useGlobalContext();
-  const Route = useRoute();
   const nav: any = useNavigation();
+  const [search, setSearch] = useState('');
+
   useEffect(() => {
     getData();
   }, []);
@@ -48,6 +50,7 @@ export default function Header() {
         </View>
         <View style={{alignItems: 'center', marginTop: -6}}>
           <TextInputs
+            onChange={setSearch}
             placeholder={'Search product here'}
             style={{
               width: windowWidth / 1.2,
@@ -55,7 +58,20 @@ export default function Header() {
               borderColor: 'white',
               elevation: 5,
             }}
-            icon={<Image source={require('../../assets/images/search.png')} />}
+            icon={
+              search == '' ? (
+                <TouchableOpacity disabled>
+                  <Image source={require('../../assets/images/search.png')} />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    nav.navigate('searchScrenn',{key:search});
+                  }}>
+                  <Image source={require('../../assets/images/search.png')} />
+                </TouchableOpacity>
+              )
+            }
           />
         </View>
       </ImageBackground>

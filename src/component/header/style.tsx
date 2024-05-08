@@ -1,31 +1,32 @@
 import {StyleSheet} from 'react-native';
+import Theme from '../../theme/Theme';
 
 const style = StyleSheet.create({
   BackgroundImg: {
     width: '100%',
-    height: 85,
-    elevation: 10,
+    height: Theme.fontSize.size85,
+    elevation: Theme.fontSize.size10,
   },
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 15,
-    marginHorizontal: 25,
+    marginTop: Theme.fontSize.size15,
+    marginHorizontal: Theme.fontSize.size25,
   },
   addTocartContainer: {
     position: 'absolute',
-    top: -10,
-    right: -15,
+    top: -Theme.fontSize.size10,
+    right: -Theme.fontSize.size15,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 25,
-    height: 25,
-    backgroundColor: '#F29900',
-    borderRadius: 20,
+    width: Theme.fontSize.size25,
+    height: Theme.fontSize.size25,
+    backgroundColor: Theme.colors.BtnColor,
+    borderRadius: Theme.fontSize.size20,
   },
   addToCartText: {
-    color: 'white',
-    fontSize: 16,
+    color: Theme.colors.white,
+    fontSize: Theme.fontSize.size16,
     fontWeight: '800',
 
     // textAlign: 'center',

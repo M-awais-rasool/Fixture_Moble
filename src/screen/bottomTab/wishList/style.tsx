@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import Theme from '../../../theme/Theme';
+const windowWidth = Dimensions.get('window').width;
 
 const style = StyleSheet.create({
   mainContainer: {
@@ -17,30 +18,31 @@ const style = StyleSheet.create({
   cartContainer: {
     borderRadius: Theme.fontSize.size10,
     borderColor: Theme.colors.borderColor,
-    borderWidth: 1,
+    borderWidth: Theme.fontSize.size1,
     padding: Theme.fontSize.size10,
     backgroundColor: Theme.colors.white,
-    elevation: 2,
+    elevation: Theme.fontSize.size2,
     marginVertical: Theme.fontSize.size10,
     flexDirection: 'row',
-    gap: 10,
+    gap: Theme.fontSize.size10,
   },
   img: {
     width: Theme.fontSize.size110,
     height: Theme.fontSize.size110,
-    borderRadius: 5,
+    borderRadius: Theme.fontSize.size5,
   },
   productNameText: {
     fontSize: Theme.fontSize.size14,
     fontWeight: '600',
     color: Theme.colors.black,
+    width: windowWidth / 2,
   },
   wishlistContainer: {
     width: '100%',
     justifyContent: 'center',
     alignSelf: 'flex-end',
     flexDirection: 'row',
-    gap: 15,
+    gap: Theme.fontSize.size15,
   },
   emptyText: {
     fontSize: Theme.fontSize.size14,
@@ -73,7 +75,7 @@ const style = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
-    gap: 5,
+    gap: Theme.fontSize.size5,
     marginTop: Theme.fontSize.size3,
     alignItems: 'center',
   },

@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import LottieView from 'lottie-react-native';
+import Theme from '../../theme/Theme';
 const windowHeight = Dimensions.get('window').height;
 
 export default function Loader() {
@@ -23,7 +24,7 @@ const style = StyleSheet.create({
     // width: '100%',
   },
   loading: {
-    width: 150,
-    height: 150,
+    width: Theme.fontSize.size150,
+    height: Theme.fontSize.size100,
   },
 });

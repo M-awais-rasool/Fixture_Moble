@@ -17,10 +17,10 @@ const style = StyleSheet.create({
   cartContainer: {
     borderRadius: Theme.fontSize.size10,
     borderColor: Theme.colors.borderColor,
-    borderWidth: 1,
+    borderWidth:Theme.fontSize.size1,
     padding: Theme.fontSize.size10,
     backgroundColor: Theme.colors.white,
-    elevation: 2,
+    elevation:Theme.fontSize.size2,
     marginVertical: Theme.fontSize.size10,
     flexDirection: 'row',
     gap: Theme.fontSize.size10,
@@ -28,7 +28,7 @@ const style = StyleSheet.create({
   img: {
     width: Theme.fontSize.size110,
     height: Theme.fontSize.size110,
-    borderRadius: 5,
+    borderRadius: Theme.fontSize.size5,
   },
   productNameText: {
     fontSize: Theme.fontSize.size14,
@@ -72,7 +72,7 @@ const style = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
-    gap: 5,
+    gap: Theme.fontSize.size5,
     marginTop: Theme.fontSize.size3,
     alignItems: 'center',
   },
@@ -81,7 +81,7 @@ const style = StyleSheet.create({
     color: Theme.colors.black,
     borderColor: Theme.colors.BtnColor,
     backgroundColor: Theme.colors.white,
-    borderWidth: 1,
+    borderWidth: Theme.fontSize.size1,
     borderRadius: Theme.fontSize.size10,
     fontWeight: '600',
     padding: Theme.fontSize.size10,

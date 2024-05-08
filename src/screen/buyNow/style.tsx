@@ -10,10 +10,10 @@ const style = StyleSheet.create({
   Contianer: {
     borderRadius: Theme.fontSize.size10,
     borderColor: Theme.colors.borderColor,
-    borderWidth: 1,
+    borderWidth: Theme.fontSize.size1,
     padding: Theme.fontSize.size10,
     backgroundColor: Theme.colors.white,
-    elevation: 2,
+    elevation: Theme.fontSize.size2,
     rowGap: Theme.fontSize.size10,
   },
   flexRow: {
@@ -25,9 +25,9 @@ const style = StyleSheet.create({
     fontSize: Theme.fontSize.size12,
     color: Theme.colors.redColor,
     fontWeight: '500',
-    marginTop: -5,
-    marginLeft: 5,
-    marginBottom: -5,
+    marginTop: -Theme.fontSize.size5,
+    marginLeft: Theme.fontSize.size5,
+    marginBottom: -Theme.fontSize.size5,
   },
   mainTextHeading: {
     fontSize: Theme.fontSize.size16,
@@ -37,8 +37,8 @@ const style = StyleSheet.create({
     marginBottom: Theme.fontSize.size5,
   },
   img:{
-    width:100,
-    height:100
+    width:Theme.fontSize.size100,
+    height:Theme.fontSize.size100
   },
   oderFlexRow:{
     flexDirection:'row',
@@ -49,6 +49,7 @@ const style = StyleSheet.create({
     fontSize: Theme.fontSize.size14,
     fontWeight: '600',
     color: Theme.colors.black,
+    paddingRight:Theme.fontSize.size10
   },
   quantityName:{
     fontSize: Theme.fontSize.size13,
@@ -57,7 +58,7 @@ const style = StyleSheet.create({
   },
   line:{
     width:'100%',
-    height:1,
+    height:Theme.fontSize.size1,
     backgroundColor:Theme.colors.disable
   }
 });

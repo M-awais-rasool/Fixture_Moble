@@ -37,7 +37,7 @@ const style = StyleSheet.create({
   },
   cancelBtn: {
     backgroundColor: Theme.colors.white,
-    borderWidth: 1,
+    borderWidth:Theme.fontSize.size1,
     color: Theme.colors.black,
     paddingHorizontal: Theme.fontSize.size20,
     fontSize: Theme.fontSize.size15,
@@ -46,7 +46,7 @@ const style = StyleSheet.create({
   },
   loading: {
     width: '100%',
-    height: 150,
+    height:Theme.fontSize.size105,
     alignSelf: 'center',
   },
   sureText: {
@@ -57,7 +57,7 @@ const style = StyleSheet.create({
   },
   removeBtn: {
     backgroundColor: Theme.colors.blueColor,
-    borderWidth: 1,
+    borderWidth: Theme.fontSize.size1,
     paddingHorizontal: Theme.fontSize.size20,
     fontSize: Theme.fontSize.size15,
     fontWeight: '700',

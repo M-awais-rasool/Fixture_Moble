@@ -41,6 +41,7 @@ export default function Product_Details() {
   const getData = async () => {
     setLoading(true);
     const getProduct: any = await get_products(Route.params.Id);
+    console.log(getProduct);
     setData(getProduct);
     getProduct?.productMedias?.map((val: any, index: any) => {
       if (index < 1) {
@@ -189,14 +190,16 @@ export default function Product_Details() {
                     />
                   )}
                 </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    addToCart();
-                  }}>
-                  <Image
-                    source={require('../../assets/images/add-shopping-cart.png')}
-                  />
-                </TouchableOpacity>
+                {data?.quantity > 0 && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      addToCart();
+                    }}>
+                    <Image
+                      source={require('../../assets/images/add-shopping-cart.png')}
+                    />
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
             {data?.discountPrice > 0 && (
@@ -207,53 +210,62 @@ export default function Product_Details() {
                 <Text style={style.DiccountOffText}>{data?.discount}% Off</Text>
               </View>
             )}
-            <View style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
-              <Text style={style.highlightText}>Quantity </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  if (quantity > 1) {
-                    setQuantity(quantity - 1);
-                  }
-                }}>
-                <Text
-                  style={[
-                    style.highlightText,
-                    {fontWeight: '800', fontSize: Theme.fontSize.size18},
-                  ]}>
-                  -
-                </Text>
-              </TouchableOpacity>
-              <View style={style.quantityBox}>
-                <Text style={[style.highlightText, {marginTop: -1}]}>
-                  {quantity}
-                </Text>
+            {data?.quantity > 0 ? (
+              <View
+                style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
+                <Text style={style.highlightText}>Quantity </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    if (quantity > 1) {
+                      setQuantity(quantity - 1);
+                    }
+                  }}>
+                  <Text
+                    style={[
+                      style.highlightText,
+                      {fontWeight: '800', fontSize: Theme.fontSize.size18},
+                    ]}>
+                    -
+                  </Text>
+                </TouchableOpacity>
+                <View style={style.quantityBox}>
+                  <Text style={[style.highlightText, {marginTop: -1}]}>
+                    {quantity}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    if (quantity < data?.quantity) {
+                      setQuantity(quantity + 1);
+                    }
+                  }}>
+                  <Text
+                    style={[
+                      style.highlightText,
+                      {fontWeight: '800', fontSize: Theme.fontSize.size16},
+                    ]}>
+                    +
+                  </Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                onPress={() => {
-                  if (quantity < data?.quantity) {
-                    setQuantity(quantity + 1);
-                  }
-                }}>
-                <Text
-                  style={[
-                    style.highlightText,
-                    {fontWeight: '800', fontSize: 16},
-                  ]}>
-                  +
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{alignItems: 'center'}}>
-              <Buttons
-                title={'Buy Now'}
-                onPress={() => {
-                  nav.navigate('BuyNow', {
-                    Id: data?.productId,
-                    Quantity: quantity,
-                  });
-                }}
-              />
-            </View>
+            ) : (
+              <Text style={[style.DiccountOffText, {textAlign: 'center'}]}>
+                Out of Stock
+              </Text>
+            )}
+            {data?.quantity > 0 && (
+              <View style={{alignItems: 'center'}}>
+                <Buttons
+                  title={'Buy Now'}
+                  onPress={() => {
+                    nav.navigate('BuyNow', {
+                      Id: data?.productId,
+                      Quantity: quantity,
+                    });
+                  }}
+                />
+              </View>
+            )}
           </View>
           <View style={{marginBottom: 10}} />
           <View style={style.Contianer}>
@@ -277,7 +289,9 @@ export default function Product_Details() {
                       alignItems: 'center',
                       marginTop: -Theme.fontSize.size10,
                     },
-                    defualtAddress == null && {marginTop: -Theme.fontSize.size55},
+                    defualtAddress == null && {
+                      marginTop: -Theme.fontSize.size55,
+                    },
                   ]}>
                   <Buttons
                     title={'Change'}

@@ -28,8 +28,8 @@ export default function Slider(props: any) {
           <View style={style.temtimonialContainer}>
             <View style={style.innercontainer}>
               <View style={style.Header} />
-              <View style={{padding: 10,alignItems:'center'}}>
-                {item.image  ? (
+              <View style={{padding: 10, alignItems: 'center'}}>
+                {item.image ? (
                   <Image
                     source={{uri: item.image}}
                     style={style.temtimonialImg}
@@ -41,7 +41,9 @@ export default function Slider(props: any) {
                   />
                 )}
                 <Text style={style.testimonialName}>{item.name}</Text>
-                <Text style={style.descripation}>{item.descripation}</Text>
+                <Text style={style.descripation} numberOfLines={3}>
+                  {item.descripation}
+                </Text>
               </View>
             </View>
           </View>
@@ -63,21 +65,21 @@ export default function Slider(props: any) {
 }
 const style = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: Theme.fontSize.size10,
     alignItems: 'center',
   },
   img: {
-    width: 75,
-    height: 75,
-    borderRadius: 10,
+    width: Theme.fontSize.size75,
+    height: Theme.fontSize.size75,
+    borderRadius: Theme.fontSize.size10,
   },
   lebel: {
     textAlign: 'center',
-    marginTop: 5,
-    fontSize: 13,
+    marginTop: Theme.fontSize.size5,
+    fontSize: Theme.fontSize.size13,
     fontWeight: '600',
-    color: 'black',
-    width: 60,
+    color: Theme.colors.black,
+    width: Theme.fontSize.size60,
   },
   temtimonialContainer: {
     width: windowWidth,
@@ -100,17 +102,17 @@ const style = StyleSheet.create({
     width: Theme.fontSize.size100,
     height: Theme.fontSize.size100,
     borderRadius: Theme.fontSize.size50,
-    marginTop:-Theme.fontSize.size50
+    marginTop: -Theme.fontSize.size50,
   },
-  testimonialName:{
-   fontSize:Theme.fontSize.size16,
-   fontWeight:'700',
-   marginVertical:Theme.fontSize.size10,
-   color:Theme.colors.black
+  testimonialName: {
+    fontSize: Theme.fontSize.size16,
+    fontWeight: '700',
+    marginVertical: Theme.fontSize.size10,
+    color: Theme.colors.black,
   },
-  descripation:{
-    fontSize:Theme.fontSize.size14,
-   fontWeight:'500',
-   color:Theme.colors.black
-  }
+  descripation: {
+    fontSize: Theme.fontSize.size14,
+    fontWeight: '500',
+    color: Theme.colors.black,
+  },
 });

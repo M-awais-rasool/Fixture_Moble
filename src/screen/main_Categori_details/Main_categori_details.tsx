@@ -6,6 +6,7 @@ import style from './style';
 import {ScrollView} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import Loader from '../../component/loader/Loader';
+import Theme from '../../theme/Theme';
 
 export default function Main_categori_details() {
   const Route: any = useRoute();
@@ -36,17 +37,25 @@ export default function Main_categori_details() {
   return (
     <ScrollView style={style.mainContainer}>
       <View>
-        <Text style={[style.mainTextHeading, {marginTop: 20}]}>
+        <Text
+          style={[style.mainTextHeading, {marginTop: Theme.fontSize.size20}]}>
           {Route.params?.name}
         </Text>
         <Slider
-        type={''}
+          type={''}
           data={Route.params.data}
           onPress={(data: any) => {
             changeData(data);
           }}
         />
-        <Text style={[style.mainTextHeading, {marginTop: 5, marginBottom: -5}]}>
+        <Text
+          style={[
+            style.mainTextHeading,
+            {
+              marginTop: Theme.fontSize.size5,
+              marginBottom: -Theme.fontSize.size5,
+            },
+          ]}>
           {name}
         </Text>
         {loading ? (
@@ -67,10 +76,10 @@ export default function Main_categori_details() {
                 }}>
                 <View
                   style={{
-                    padding: 10,
+                    padding: Theme.fontSize.size10,
                     backgroundColor: 'white',
                     alignItems: 'center',
-                    borderRadius: 5,
+                    borderRadius: Theme.fontSize.size5,
                     // justifyContent:'center'
                   }}>
                   <Image source={{uri: val.image}} style={style.img} />

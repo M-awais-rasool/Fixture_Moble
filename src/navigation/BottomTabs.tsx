@@ -2,7 +2,7 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import WishList from '../screen/bottomTab/wishList/WishList';
-import MessageScreen from '../screen/bottomTab/search/SearchScreen';
+import searchScrenn from '../screen/bottomTab/search/SearchScreen';
 import UserProfile from '../screen/bottomTab/userProfile/UserProfile';
 import BottomStack from './BottomStack';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -70,8 +70,8 @@ export default function BottomTabs() {
           }}
         />
         <Tab.Screen
-          component={MessageScreen}
-          name="MessageScreen"
+          component={searchScrenn}
+          name="searchScrenn"
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({focused}: any) => {

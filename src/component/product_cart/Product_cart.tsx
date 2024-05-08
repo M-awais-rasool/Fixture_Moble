@@ -46,15 +46,23 @@ export default function Product_cart(props: any) {
               },
             ]}>
             <Text style={style.subCategoriPrice}>Rs: {props.data.price}</Text>
-            <TouchableOpacity
-              onPress={() => {
-                props.onCartPress();
-              }}>
-              <Image
-                source={require('../../assets/images/add-shopping-cart.png')}
-              />
-            </TouchableOpacity>
+            {props.data.quantity > 0 && (
+              <TouchableOpacity
+                onPress={() => {
+                  props.onCartPress();
+                }}>
+                <Image
+                  source={require('../../assets/images/add-shopping-cart.png')}
+                />
+              </TouchableOpacity>
+            )}
           </View>
+          {props.data.quantity < 1 && (
+            <Text
+              style={[style.subCategoriDiccountOffText, {textAlign: 'center'}]}>
+              Out of Stock
+            </Text>
+          )}
         </View>
       </TouchableOpacity>
     </View>
@@ -63,7 +71,7 @@ export default function Product_cart(props: any) {
 
 const style = StyleSheet.create({
   subCategoriInnerContainer: {
-    backgroundColor: '#FAFAFA',
+    backgroundColor:Theme.colors.white,
     // padding: 5,
     margin: Theme.fontSize.size5,
     overflow: 'hidden',
