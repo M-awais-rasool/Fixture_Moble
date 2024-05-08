@@ -31,6 +31,8 @@ API.interceptors.response.use(
   async function (error: any) {
     let errors = JSON.stringify(error.response.status);
     let messg = JSON.stringify(error.response.data.message);
+    console.log(messg)
+
     if (errors === '401') {
       console.log('API Error');
       const res = {

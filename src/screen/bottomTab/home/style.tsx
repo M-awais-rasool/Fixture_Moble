@@ -9,8 +9,9 @@ const style = StyleSheet.create({
   textContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
-    marginHorizontal: 10,
+    marginTop: Theme.fontSize.size20,
+    marginHorizontal: Theme.fontSize.size10,
+    alignItems:'center'
   },
   CategoriesText: {
     fontSize: Theme.fontSize.size16,
@@ -20,15 +21,15 @@ const style = StyleSheet.create({
     marginVertical:10
   },
   viewText: {
-    fontSize: 14,
+    fontSize: Theme.fontSize.size14,
     fontWeight: '500',
-    color: 'black',
+    color: Theme.colors.BtnColor,
   },
   productContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: Theme.fontSize.size10,
   },
 });
 

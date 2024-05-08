@@ -19,7 +19,11 @@ export default function Product_cart(props: any) {
         }}
         style={style.subCategoriInnerContainer}>
         <Image source={{uri: props.data.image}} style={style.subCategoriImg} />
-        <View style={{padding: 5}}>
+        <View
+          style={{
+            padding: Theme.fontSize.size5,
+            paddingHorizontal: Theme.fontSize.size10,
+          }}>
           <Text style={style.subCategoriText} numberOfLines={1}>
             {props.data.productName}
           </Text>
@@ -42,7 +46,10 @@ export default function Product_cart(props: any) {
               },
             ]}>
             <Text style={style.subCategoriPrice}>Rs: {props.data.price}</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                props.onCartPress();
+              }}>
               <Image
                 source={require('../../assets/images/add-shopping-cart.png')}
               />
@@ -58,20 +65,20 @@ const style = StyleSheet.create({
   subCategoriInnerContainer: {
     backgroundColor: '#FAFAFA',
     // padding: 5,
-    margin: 5,
+    margin: Theme.fontSize.size5,
     overflow: 'hidden',
     width: windowWidth / 2.5,
-    elevation: 3,
-    borderRadius: 5,
-    borderWidth: 1,
+    elevation: Theme.fontSize.size3,
+    borderRadius: Theme.fontSize.size5,
+    borderWidth: Theme.fontSize.size1,
     borderColor: Theme.colors.borderColor,
-    height:236
+    height: Theme.fontSize.size236,
   },
   subCategoriImg: {
     width: '100%',
     // height: 100,
-    aspectRatio: 5 / 5,
-    objectFit:'cover'
+    aspectRatio: Theme.fontSize.size5 / Theme.fontSize.size5,
+    objectFit: 'cover',
   },
   subCategoriText: {
     fontSize: Theme.fontSize.size13,
@@ -98,7 +105,7 @@ const style = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
-    gap: 5,
+    gap: Theme.fontSize.size5,
     marginTop: Theme.fontSize.size3,
   },
 });

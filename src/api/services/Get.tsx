@@ -54,3 +54,19 @@ export async function getUserData() {
   const res = await API.get('User/get-user-profile');
   return res.data.data;
 }
+
+export async function get_Shipping_address() {
+  const res = await API.get('ShippingAddress/get-Shipping-address');
+  return res.data.data;
+}
+
+export async function get_default_Shipping_address() {
+  const res = await API.get('ShippingAddress/get-user-default-Shipping-address');
+  return res.data.data;
+}
+
+
+export async function get_product_order_summary(id:any ,Q:any) {
+  const res = await API.get(`Home/get-product-order-summary/${id}?quantity=${Q}`);
+  return res.data.data;
+}

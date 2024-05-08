@@ -6,7 +6,7 @@ import Theme from '../../theme/Theme';
 export default function Buttons(props: any) {
   return (
     <View>
-      <TouchableOpacity onPress={() => props.onPress()}>
+      <TouchableOpacity onPress={() => props.onPress()} disabled={props.disabled}>
         <Text style={[style.btn, props.style]}>{props.title}</Text>
       </TouchableOpacity>
     </View>

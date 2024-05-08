@@ -64,11 +64,36 @@ const style = StyleSheet.create({
     marginTop: Theme.fontSize.size15,
     marginBottom: -Theme.fontSize.size7,
   },
-  flexRow:{
+  flexRow: {
     flexDirection: 'row',
-    justifyContent:'space-between',
-    alignItems:'center'
-  }
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  emailError: {
+    fontSize: Theme.fontSize.size12,
+    color: Theme.colors.redColor,
+    fontWeight: '500',
+    marginTop: -5,
+    marginLeft: 5,
+    marginBottom: -5,
+  },
+  addressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Theme.fontSize.size30,
+  },
+  nameHeading: {
+    fontSize: Theme.fontSize.size14,
+    fontWeight: '500',
+    color: Theme.colors.black,
+  },
+  statusFalseBtn: {
+    backgroundColor: Theme.colors.white,
+    borderWidth: 1,
+    borderColor: Theme.colors.disable,
+    color: Theme.colors.black,
+    marginTop:Theme.fontSize.size10
+  },
 });
 
 export default style;

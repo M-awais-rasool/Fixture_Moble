@@ -63,6 +63,12 @@ const style = StyleSheet.create({
     fontWeight: '700',
     borderColor: Theme.colors.blueColor,
   },
+  addressContainer: {
+    flexWrap: 'wrap',
+    paddingHorizontal: Theme.fontSize.size10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 export default style;

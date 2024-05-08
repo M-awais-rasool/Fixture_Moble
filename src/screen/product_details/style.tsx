@@ -95,11 +95,10 @@ const style = StyleSheet.create({
     width: '100%',
   },
   deliveryInnerContainer1: {
-    width: '50%',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: -20,
-    gap: 15,
+    gap: 3,
+    flexWrap: 'wrap',
   },
   deliveryInnerContainer2: {
     width: '50%',

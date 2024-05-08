@@ -1,4 +1,4 @@
-import {View, Text, ScrollView, Dimensions} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
   get_mainCategories_detail,
@@ -8,10 +8,13 @@ import {
 } from '../../../api/services/Get';
 import Slider from '../../../component/sliders/Slider';
 import style from './style';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Product_cart from '../../../component/product_cart/Product_cart';
-import Buttons from '../../../component/buttons/Buttons';
 import Theme from '../../../theme/Theme';
+import {add_to_Cart} from '../../../api/services/Post';
+import Toast from 'react-native-toast-message';
+import {useGlobalContext} from '../../../component/context.tsx/Context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home() {
   const [getCategories_detail, setGetCategories_detail] = useState([]);
@@ -19,6 +22,7 @@ export default function Home() {
   const [getOnSale, setGetOnSale] = useState([]);
   const [testimonials, setTestimonial] = useState([]);
   const nav: any = useNavigation();
+  const context: any = useGlobalContext();
 
   useEffect(() => {
     getData();
@@ -32,6 +36,30 @@ export default function Home() {
     setGetOnSale(res);
     const gettestimonial = await get_testimonial();
     setTestimonial(gettestimonial);
+  };
+
+  const addToCart = async (id: any) => {
+    let token = await AsyncStorage.getItem('token');
+    if (token) {
+      const res: any = await add_to_Cart(id, 1);
+      if (res.status == 200) {
+        context.isAdd_To_Cart_State(context.addToCartState + 1);
+        Toast.show({
+          type: 'success',
+          text1: res.data.message + '.😍',
+          visibilityTime: 3000,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: res.data.message,
+          visibilityTime: 3000,
+        });
+      }
+    } else {
+      AsyncStorage.clear();
+      nav.navigate('SignIn');
+    }
   };
   return (
     <ScrollView style={style.container}>
@@ -50,47 +78,48 @@ export default function Home() {
             });
           }}
         />
-        <Text style={style.CategoriesText}>Papular Products</Text>
+        <View style={style.textContainer}>
+          <Text style={style.CategoriesText}>Papular Products</Text>
+          <TouchableOpacity>
+            <Text style={style.viewText}>View all</Text>
+          </TouchableOpacity>
+        </View>
         <View style={style.productContainer}>
-          {getPapular_Product
-            .map((val: any, index: any) => (
-              <View key={index}>
-                <Product_cart
-                  data={val}
-                  onPress={() => {
-                    nav.navigate('Product_Details', {Id: val.productId});
-                  }}
-                />
-              </View>
-            ))
-            .slice(15)}
+          {getPapular_Product.slice(0, 4).map((val: any, index: any) => (
+            <View key={index}>
+              <Product_cart
+                data={val}
+                onCartPress={() => {
+                  addToCart(val.productId);
+                }}
+                onPress={() => {
+                  nav.navigate('Product_Details', {Id: val.productId});
+                }}
+              />
+            </View>
+          ))}
         </View>
-        <View style={{alignItems: 'center'}}>
-          <Buttons title={'See All Popular'} onPress={() => {}} />
-        </View>
-        <Text
+        <View
           style={[
-            style.CategoriesText,
-            {marginTop: Theme.fontSize.size20, marginBottom: -5},
+            style.textContainer,
+            {marginTop: Theme.fontSize.size20, marginBottom: -10},
           ]}>
-          Onsale Products
-        </Text>
-        <View style={style.productContainer}>
-          {getOnSale
-            .map((val: any, index: any) => (
-              <View key={index}>
-                <Product_cart
-                  data={val}
-                  onPress={() => {
-                    nav.navigate('Product_Details', {Id: val.productId});
-                  }}
-                />
-              </View>
-            ))
-            .slice(15)}
+          <Text style={style.CategoriesText}>Onsale Products</Text>
+          <TouchableOpacity>
+            <Text style={style.viewText}>View all</Text>
+          </TouchableOpacity>
         </View>
-        <View style={{alignItems: 'center'}}>
-          <Buttons title={'See All OnSale'} onPress={() => {}} />
+        <View style={style.productContainer}>
+          {getOnSale.slice(0, 4).map((val: any, index: any) => (
+            <View key={index}>
+              <Product_cart
+                data={val}
+                onPress={() => {
+                  nav.navigate('Product_Details', {Id: val.productId});
+                }}
+              />
+            </View>
+          ))}
         </View>
         <Text
           style={[

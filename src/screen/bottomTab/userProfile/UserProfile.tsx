@@ -5,18 +5,23 @@ import Buttons from '../../../component/buttons/Buttons';
 import Theme from '../../../theme/Theme';
 import TextInputs from '../../../component/textInput/TextInputs';
 import {getUserData} from '../../../api/services/Get';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PopUp from '../../../component/popUp/PopUp';
 import PofileInfo from './PofileInfo';
 import AddressInfo from './AddressInfo';
 
 export default function UserProfile() {
+  const Route: any = useRoute();
   const [data, setdata] = useState<any>();
   const nav: any = useNavigation();
   const [token, setToken] = useState();
   const [isLogout, setIsLogout] = useState(false);
-  const [pageChange,setPageChange] = useState(1)
+  const [pageChange, setPageChange] = useState(1);
   const [btn, setBtn] = useState([
     {
       id: 1,
@@ -42,13 +47,16 @@ export default function UserProfile() {
   useFocusEffect(
     React.useCallback(() => {
       getData();
+      if (Route?.params?.Btn) {
+        isActive(4);
+      }
     }, []),
   );
   const isActive = (itemId: any) => {
     for (let i = 0; i < btn?.length; i++) {
       if (btn[i].id == itemId) {
         btn[i].isActive = true;
-        setPageChange(btn[i].id)
+        setPageChange(btn[i].id);
       } else {
         btn[i].isActive = false;
       }
@@ -113,11 +121,8 @@ export default function UserProfile() {
             </ScrollView>
           </View>
           <Text style={style.mainTextHeading}>Manage My Account</Text>
-          {
-            pageChange == 1 ? <PofileInfo data={data} /> :
-           <AddressInfo/>
-          }
-          
+          {pageChange == 1 ? <PofileInfo data={data} /> : <AddressInfo />}
+
           <PopUp
             isVisible={isLogout}
             setIsVisible={setIsLogout}

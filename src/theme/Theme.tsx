@@ -116,6 +116,7 @@ const Theme = {
     size200: RFValue(200),
     size222: RFValue(222),
     size225: RFValue(225),
+    size236: RFValue(236),
     size250: RFValue(280),
     size300: RFValue(300),
     size350: RFValue(350),

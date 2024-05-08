@@ -21,3 +21,11 @@ export const add_to_Cart_Quantity = async (id: any) => {
   const res: any = await API.post(`Cart/add-to-cart/${id}`);
   return res;
 };
+
+export const add_new_shipping_address = async (data: any) => {
+  const res: any = await API.post(
+    'ShippingAddress/add-new-shipping-address',
+    data,
+  );
+  return res;
+};

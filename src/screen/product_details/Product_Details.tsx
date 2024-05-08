@@ -1,6 +1,10 @@
 import {View, Text, Image, Dimensions, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {get_products} from '../../api/services/Get';
+import {
+  get_Shipping_address,
+  get_default_Shipping_address,
+  get_products,
+} from '../../api/services/Get';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import style from './style';
 import Theme from '../../theme/Theme';
@@ -12,6 +16,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from '../../component/loader/Loader';
 import {useGlobalContext} from '../../component/context.tsx/Context';
 import Buttons from '../../component/buttons/Buttons';
+import PopUp from '../../component/popUp/PopUp';
+import {update_shipping_Address} from '../../api/services/Put';
 const windowWidth = Dimensions.get('window').width;
 
 export default function Product_Details() {
@@ -23,8 +29,14 @@ export default function Product_Details() {
   const nav: any = useNavigation();
   const context: any = useGlobalContext();
   const regex = /(<([^>]+)>)/gi;
+  const [isVisible, setIsVisible] = useState(false);
+  const [adressData, setAddressData] = useState([]);
+  const [addressId, setAdressId] = useState('');
+  const [defualtAddress, setDefualAddress] = useState<any>();
+
   useEffect(() => {
     getData();
+    getAddress();
   }, []);
   const getData = async () => {
     setLoading(true);
@@ -106,7 +118,16 @@ export default function Product_Details() {
       nav.navigate('SignIn');
     }
   };
-
+  const getAddress = async () => {
+    const res = await get_Shipping_address();
+    const res1 = await get_default_Shipping_address();
+    setDefualAddress(res1);
+    setAddressData(res);
+  };
+  const updateAddress = async () => {
+    const res = await update_shipping_Address(addressId);
+    getAddress();
+  };
   return (
     <>
       {loading ? (
@@ -226,7 +247,10 @@ export default function Product_Details() {
               <Buttons
                 title={'Buy Now'}
                 onPress={() => {
-                  nav.navigate('BuyNow');
+                  nav.navigate('BuyNow', {
+                    Id: data?.productId,
+                    Quantity: quantity,
+                  });
                 }}
               />
             </View>
@@ -235,13 +259,35 @@ export default function Product_Details() {
           <View style={style.Contianer}>
             <Text style={style.deliveryText}>Delivery</Text>
             <View style={style.deliveryContainer}>
-              <View style={style.deliveryInnerContainer1}>
-                <Image
-                  source={require('../../assets/images/location.png')}
-                  style={{marginTop: 20}}
-                />
-                <Buttons title={'Change'} onPress={() => {}} />
+              <View style={{width: '50%'}}>
+                <View style={style.deliveryInnerContainer1}>
+                  <Image
+                    source={require('../../assets/images/location.png')}
+                    style={{marginTop: Theme.fontSize.size20}}
+                  />
+                  {defualtAddress != null && (
+                    <Text style={[style.Price]} numberOfLines={1}>
+                      {defualtAddress?.city + ' ' + defualtAddress?.address}
+                    </Text>
+                  )}
+                </View>
+                <View
+                  style={[
+                    {
+                      alignItems: 'center',
+                      marginTop: -Theme.fontSize.size10,
+                    },
+                    defualtAddress == null && {marginTop: -Theme.fontSize.size55},
+                  ]}>
+                  <Buttons
+                    title={'Change'}
+                    onPress={() => {
+                      setIsVisible(true);
+                    }}
+                  />
+                </View>
               </View>
+
               <View style={style.line1} />
               <View style={style.deliveryInnerContainer2}>
                 <View style={{flexDirection: 'row', gap: 10}}>
@@ -280,6 +326,14 @@ export default function Product_Details() {
               </View>
             ))}
           </View>
+          <PopUp
+            setIsVisible={setIsVisible}
+            isVisible={isVisible}
+            type={'location'}
+            data={adressData}
+            setAdressId={setAdressId}
+            functionCall={updateAddress}
+          />
           <View style={{marginBottom: 50}} />
         </ScrollView>
       )}
