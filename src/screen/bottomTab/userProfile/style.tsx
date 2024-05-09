@@ -94,6 +94,27 @@ const style = StyleSheet.create({
     color: Theme.colors.black,
     marginTop:Theme.fontSize.size10
   },
+  cameraImg:{
+    marginLeft:80,
+    marginTop:-30,
+    width:20,
+    height:20
+  },
+  dropPickerContainer: {
+    width: 200,
+    height: 120,
+    backgroundColor: '#f0f0f0',
+  },
+  line1: {
+    height: 1,
+    width: '100%',
+    backgroundColor: 'gray',
+  },
+  dropPickerText:{
+    fontSize:Theme.fontSize.size12,
+    color:'black',
+    fontWeight: '500',
+  }
 });
 
 export default style;

@@ -24,6 +24,7 @@ const style = StyleSheet.create({
     marginVertical: Theme.fontSize.size10,
     flexDirection: 'row',
     gap: Theme.fontSize.size10,
+    width:'100%'
   },
   img: {
     width: Theme.fontSize.size110,

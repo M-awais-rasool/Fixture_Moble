@@ -134,7 +134,7 @@ export default function PopUp(props: popUpProps) {
               />
             </View>
             <ScrollView style={{minHeight: 20, maxHeight: 120}}>
-              {props.data.map((val: any, index: any) => (
+              {props?.data?.map((val: any, index: any) => (
                 <View style={style.addressContainer}>
                   <View style={{alignItems: 'flex-end'}}>
                     <RadioButton
@@ -159,7 +159,7 @@ export default function PopUp(props: popUpProps) {
               ))}
             </ScrollView>
             <View style={style.flexRow}>
-              {props.data.length > 0 && (
+              {props?.data?.length > 0 && (
                 <Buttons
                   title={'Save'}
                   onPress={() => {

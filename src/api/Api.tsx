@@ -1,5 +1,6 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 
 export const APIURl = 'https://fixturesmobel.com:446/Api/';
 
@@ -49,3 +50,148 @@ API.interceptors.response.use(
     }
   },
 );
+
+export const askPermision = async (item: any) => {
+  if (item === 'camera') {
+    let response;
+    response = await check(PERMISSIONS.ANDROID.CAMERA)
+      .then(async result => {
+        let data;
+        switch (result) {
+          case RESULTS.UNAVAILABLE:
+            data = await permissionRequest(item);
+            break;
+          case RESULTS.DENIED:
+            data = await permissionRequest(item);
+            break;
+          case RESULTS.GRANTED:
+            data = {
+              result: true,
+              permission: 'GRANTED',
+            };
+            break;
+          case RESULTS.BLOCKED:
+            data = await permissionRequest(item);
+            break;
+        }
+        return data;
+      })
+      .catch(async _error => {
+        return await permissionRequest(item);
+      });
+    return response;
+  } else if (item === 'gallery') {
+    let response;
+    response = await check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE)
+      .then(async result => {
+        let data;
+        switch (result) {
+          case RESULTS.UNAVAILABLE:
+            data = await permissionRequest(item);
+            break;
+          case RESULTS.DENIED:
+            data = await permissionRequest(item);
+            break;
+          case RESULTS.GRANTED:
+            data = {
+              result: true,
+              permission: 'GRANTED',
+            };
+            break;
+          case RESULTS.BLOCKED:
+            data = await permissionRequest(item);
+            break;
+        }
+        return data;
+      })
+      .catch(async _error => {
+        return await permissionRequest(item);
+      });
+
+    return response;
+  }
+};
+
+const permissionRequest = async (item: any) => {
+  if (item === 'camera') {
+    let response;
+    response = await request(PERMISSIONS.ANDROID.CAMERA).then(result => {
+      let data;
+      switch (result) {
+        case RESULTS.UNAVAILABLE:
+          data = {
+            result: false,
+            permission: 'UNAVAILABLE',
+          };
+          break;
+        case RESULTS.DENIED:
+          data = {
+            result: false,
+            permission: 'DENIED',
+          };
+          break;
+        case RESULTS.LIMITED:
+          data = {
+            result: false,
+            permission: 'LIMITED',
+          };
+          break;
+        case RESULTS.GRANTED:
+          data = {
+            result: true,
+            permission: 'GRANTED',
+          };
+          break;
+        case RESULTS.BLOCKED:
+          data = {
+            result: false,
+            permission: 'BLOCKED',
+          };
+          break;
+      }
+      return data;
+    });
+    return response;
+  } else if (item === 'gallery') {
+    let response;
+    response = await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(
+      result => {
+        let data;
+        switch (result) {
+          case RESULTS.UNAVAILABLE:
+            data = {
+              result: false,
+              permission: 'UNAVAILABLE',
+            };
+            break;
+          case RESULTS.DENIED:
+            data = {
+              result: false,
+              permission: 'DENIED',
+            };
+            break;
+          case RESULTS.LIMITED:
+            data = {
+              result: false,
+              permission: 'LIMITED',
+            };
+            break;
+          case RESULTS.GRANTED:
+            data = {
+              result: true,
+              permission: 'GRANTED',
+            };
+            break;
+          case RESULTS.BLOCKED:
+            data = {
+              result: false,
+              permission: 'BLOCKED',
+            };
+            break;
+        }
+        return data;
+      },
+    );
+    return response;
+  }
+};
