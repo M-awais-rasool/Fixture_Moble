@@ -4,8 +4,13 @@ import {FlatList} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import Theme from '../../theme/Theme';
 const windowWidth = Dimensions.get('window').width;
-
-export default function Slider(props: any) {
+interface DropDown {
+  type?: string;
+  data?: any;
+  pagingEnabled?: boolean;
+  onPress?: (i: any) => void;
+}
+export default function Slider(props: DropDown) {
   const render_item = ({item}: any) => {
     return (
       <>
@@ -13,16 +18,18 @@ export default function Slider(props: any) {
           <TouchableOpacity
             style={style.container}
             onPress={() =>
-              props.onPress({
+              props.onPress?.({
                 categories: item.categories,
                 name: item.name,
                 subCategories: item.subCategories,
               })
             }>
-            <Image source={{uri: item.image}} style={style.img} />
-            <Text style={style.lebel} numberOfLines={1}>
-              {item.name}
-            </Text>
+            <View>
+              <Image source={{uri: item.image}} style={style.img} />
+              <Text style={style.lebel} numberOfLines={1}>
+                {item.name}
+              </Text>
+            </View>
           </TouchableOpacity>
         ) : (
           <View style={style.temtimonialContainer}>
@@ -89,7 +96,6 @@ const style = StyleSheet.create({
     borderRadius: Theme.fontSize.size10,
     borderColor: Theme.colors.borderColor,
     borderWidth: 1,
-    // padding: Theme.fontSize.size10,
     backgroundColor: Theme.colors.white,
     elevation: 2,
     width: '90%',
@@ -97,6 +103,8 @@ const style = StyleSheet.create({
   Header: {
     height: Theme.fontSize.size80,
     backgroundColor: Theme.colors.BtnColor,
+    borderTopEndRadius: Theme.fontSize.size10,
+    borderTopLeftRadius: Theme.fontSize.size10,
   },
   temtimonialImg: {
     width: Theme.fontSize.size100,

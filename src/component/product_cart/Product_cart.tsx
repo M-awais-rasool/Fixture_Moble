@@ -9,13 +9,19 @@ import {
 import React from 'react';
 import Theme from '../../theme/Theme';
 const windowWidth = Dimensions.get('window').width;
-
-export default function Product_cart(props: any) {
+interface DropDown {
+  data?: any;
+  type?: string;
+  img?: any;
+  onPress?: () => void;
+  onCartPress?: () => void;
+}
+export default function Product_cart(props: DropDown) {
   return (
     <View>
       <TouchableOpacity
         onPress={() => {
-          props.onPress();
+          props.onPress?.();
         }}
         style={style.subCategoriInnerContainer}>
         <Image source={{uri: props.data.image}} style={style.subCategoriImg} />
@@ -49,7 +55,7 @@ export default function Product_cart(props: any) {
             {props.data.quantity > 0 && (
               <TouchableOpacity
                 onPress={() => {
-                  props.onCartPress();
+                  props.onCartPress?.();
                 }}>
                 <Image
                   source={require('../../assets/images/add-shopping-cart.png')}
@@ -71,7 +77,7 @@ export default function Product_cart(props: any) {
 
 const style = StyleSheet.create({
   subCategoriInnerContainer: {
-    backgroundColor:Theme.colors.white,
+    backgroundColor: Theme.colors.white,
     // padding: 5,
     margin: Theme.fontSize.size5,
     overflow: 'hidden',
@@ -117,3 +123,24 @@ const style = StyleSheet.create({
     marginTop: Theme.fontSize.size3,
   },
 });
+// {props.type == 'search' ? (
+//   <View>
+//     {props?.img?.map((vals: any, index: any) =>
+//       vals?.productMedias?.map(
+//         (val: any, index: any) =>
+//           vals?.productMedias?.[index]?.imgUrl == vals?.productMedias?.[0]?.imgUrl && (
+//             <Image
+//               key={index}
+//               source={{uri: val.imgUrl}}
+//               style={style.subCategoriImg}
+//             />
+//           ),
+//       ),
+//     )}
+//   </View>
+// ) : (
+//   <Image
+//     source={{uri: props.data.image}}
+//     style={style.subCategoriImg}
+//   />
+// )}

@@ -18,6 +18,7 @@ import {add_new_shipping_address} from '../../../api/services/Post';
 import {get_Shipping_address} from '../../../api/services/Get';
 import Loader from '../../../component/loader/Loader';
 import {update_shipping_Address} from '../../../api/services/Put';
+import {isNetworkAvailable} from '../../../api/Api';
 
 export default function AddressInfo() {
   const emailValidation = /^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{3,6}$/;
@@ -33,7 +34,6 @@ export default function AddressInfo() {
   const [phoneNo, setPhoneNo] = useState('');
   const [shippingAddress, setShippingAddress] = useState('');
   const [addressData, setAddressData] = useState([]);
-
   const data = [
     'Punjab',
     'Sindh',
@@ -41,6 +41,7 @@ export default function AddressInfo() {
     'Khyber Pakhtunkhwa',
     'Islamabad Capital Territory',
   ];
+
   const checkCity = () => {
     if (stateLebel == 'Punjab') {
       setCityData(punjab);
@@ -55,66 +56,100 @@ export default function AddressInfo() {
     }
   };
   const sendAddress = async () => {
-    if (
-      name == '' ||
-      email == '' ||
-      phoneNo == '' ||
-      shippingAddress == '' ||
-      cityLebel == 'Select Your City'
-    ) {
-      Toast.show({
-        type: 'error',
-        text1: 'Please fill all fields',
-        visibilityTime: 3000,
-      });
-    } else if (!email.match(emailValidation)) {
-      Toast.show({
-        type: 'error',
-        text1: 'Please Enter Valid Email',
-        visibilityTime: 3000,
-      });
-    } else if (phoneNo.length < 11) {
-      Toast.show({
-        type: 'error',
-        text1: 'Please Enter Valid Phone No',
-        visibilityTime: 3000,
-      });
-    } else {
-      let data = {
-        city: cityLebel,
-        address: shippingAddress,
-        phoneNo: phoneNo,
-        firstName: name,
-        email: email,
-        status: checked,
-      };
-      const res = await add_new_shipping_address(data);
-      if (res.data.status == 'Success') {
-        setEmail('');
-        setPhoneNo('');
-        setShippingAddress('');
-        setName('');
-        setStateLebel('Select Your State');
-        setCityLebel('Select Your City');
-        getshippingAddress();
-        setAddressFlag(false);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      if (
+        name == '' ||
+        email == '' ||
+        phoneNo == '' ||
+        shippingAddress == '' ||
+        cityLebel == 'Select Your City'
+      ) {
+        Toast.show({
+          type: 'error',
+          text1: 'Please fill all fields',
+          visibilityTime: 3000,
+        });
+      } else if (!email.match(emailValidation)) {
+        Toast.show({
+          type: 'error',
+          text1: 'Please Enter Valid Email',
+          visibilityTime: 3000,
+        });
+      } else if (phoneNo.length < 11) {
+        Toast.show({
+          type: 'error',
+          text1: 'Please Enter Valid Phone No',
+          visibilityTime: 3000,
+        });
+      } else {
+        let data = {
+          city: cityLebel,
+          address: shippingAddress,
+          phoneNo: phoneNo,
+          firstName: name,
+          email: email,
+          status: checked,
+        };
+        const res = await add_new_shipping_address(data);
+        if (res.data.status == 'Success') {
+          setEmail('');
+          setPhoneNo('');
+          setShippingAddress('');
+          setName('');
+          setStateLebel('Select Your State');
+          setCityLebel('Select Your City');
+          getshippingAddress();
+          setAddressFlag(false);
+        }
       }
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
     }
   };
   const getshippingAddress = async () => {
     setLoading(true);
-    const res = await get_Shipping_address();
-    setAddressData(res);
-    setLoading(false);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res = await get_Shipping_address();
+        setAddressData(res);
+        setLoading(false);
+      } catch (error: any) {
+        setLoading(false);
+        console.log(error);
+      }
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
+    }
   };
   useEffect(() => {
     getshippingAddress();
   }, []);
 
   const changeShippingAddress = async (id: any) => {
-    const res = await update_shipping_Address(id);
-    const res1 = await get_Shipping_address();
-    setAddressData(res1);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res = await update_shipping_Address(id);
+        const res1 = await get_Shipping_address();
+        setAddressData(res1);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
   return (
     <>
@@ -231,19 +266,25 @@ export default function AddressInfo() {
                       {marginVertical: Theme.fontSize.size10},
                     ]}
                     key={index}>
-                    <View style={style.addressContainer}>
-                      <Text style={style.nameHeading}>Name:</Text>
-                      <Text style={style.nameHeading}>{val.firstName}</Text>
-                    </View>
-                    <View style={style.addressContainer}>
-                      <Text style={style.nameHeading}>Address:</Text>
-                      <Text style={style.nameHeading} numberOfLines={2}>
-                        Pakistan {val.city + ' ' + val.address}
-                      </Text>
-                    </View>
-                    <View style={style.addressContainer}>
-                      <Text style={style.nameHeading}>Phone No:</Text>
-                      <Text style={style.nameHeading}>{val.phoneNo}</Text>
+                    <View style={{flexDirection: 'row', gap: 3}}>
+                      <View>
+                        <Text style={style.nameHeading}>Name:</Text>
+                        <Text style={style.nameHeading}>Address:</Text>
+                        <Text style={style.nameHeading}>Phone No:</Text>
+                      </View>
+                      <View>
+                        <Text style={[style.nameHeading, {fontWeight: '400'}]}>
+                          {val.firstName}
+                        </Text>
+                        <Text
+                          style={[style.nameHeading, {fontWeight: '400'}]}
+                          numberOfLines={2}>
+                          Pakistan {val.city + ' ' + val.address}
+                        </Text>
+                        <Text style={[style.nameHeading, {fontWeight: '400'}]}>
+                          {val.phoneNo}
+                        </Text>
+                      </View>
                     </View>
                     <View style={style.addressContainer}>
                       <Text style={style.nameHeading}>Default:</Text>
@@ -255,7 +296,7 @@ export default function AddressInfo() {
                         />
                       ) : (
                         <Buttons
-                          title={'Selected'}
+                          title={'Select'}
                           style={style.statusFalseBtn}
                           onPress={() => {
                             changeShippingAddress(val.shippingAddressId);

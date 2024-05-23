@@ -1,16 +1,29 @@
 import {View, Text, TextInput, StyleSheet} from 'react-native';
 import React from 'react';
 import Theme from '../../theme/Theme';
-
-export default function TextInputs(props: any) {
+interface props {
+  secureTextEntry?: boolean;
+  style?: any;
+  Textlebel?: string;
+  keyboardType?: any;
+  lebel?: any;
+  placeholder?: string;
+  maxLength?: number;
+  value?: any;
+  readOnly?: boolean;
+  icon?: any;
+  onChange?: (i: any) => void;
+}
+export default function TextInputs(props: props) {
   return (
     <View>
       <Text style={style.lebel}>{props.lebel}</Text>
       <TextInput
         style={[style.input, props.style]}
+        secureTextEntry={props.secureTextEntry}
         placeholder={props.placeholder}
         onChangeText={(e: any) => {
-          props.onChange(e);
+          props.onChange?.(e);
         }}
         keyboardType={props.keyboardType}
         maxLength={props.maxLength}
@@ -31,13 +44,13 @@ const style = StyleSheet.create({
     fontSize: Theme.fontSize.size14,
     fontWeight: '500',
     paddingLeft: Theme.fontSize.size10,
-    color: 'black',
+    color: Theme.colors.black,
     paddingRight: Theme.fontSize.size35,
   },
   lebel: {
     fontSize: Theme.fontSize.size14,
     fontWeight: '500',
-    color: 'black',
+    color: Theme.colors.black,
     marginLeft: Theme.fontSize.size5,
     marginBottom: Theme.fontSize.size2,
   },

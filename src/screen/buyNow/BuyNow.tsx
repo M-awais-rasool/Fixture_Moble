@@ -21,6 +21,8 @@ import PopUp from '../../component/popUp/PopUp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Loader from '../../component/loader/Loader';
+import {isNetworkAvailable} from '../../api/Api';
+import Toast from 'react-native-toast-message';
 
 export default function BuyNow() {
   const [name, setName] = useState('');
@@ -61,15 +63,29 @@ export default function BuyNow() {
   };
   const getAddress = async () => {
     setLoading(true);
-    const res = await get_default_Shipping_address();
-    setAddressData(res);
-    const res1 = await get_product_order_summary(
-      Route.params.Id,
-      Route.params.Quantity,
-    );
-    console.log(res1)
-    setSummaryData(res1.data);
-    setLoading(false);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res = await get_default_Shipping_address();
+        setAddressData(res);
+        const res1 = await get_product_order_summary(
+          Route.params.Id,
+          Route.params.Quantity,
+        );
+        setSummaryData(res1.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
+    }
   };
   useEffect(() => {
     getAddress();
@@ -195,7 +211,7 @@ export default function BuyNow() {
               </View>
               <View style={{alignItems: 'center'}}>
                 <Buttons
-                  title={'Placed Order'}
+                  title={'Place Order'}
                   onPress={() => {}}
                   style={{paddingHorizontal: Theme.fontSize.size30}}
                 />
@@ -208,13 +224,15 @@ export default function BuyNow() {
             />
           </View>
           <View style={[style.Contianer, {marginTop: Theme.fontSize.size10}]}>
-            <Text style={[style.mainTextHeading]}>Oder Summary</Text>
+            <Text style={[style.mainTextHeading]}>Order Summary</Text>
             <View style={style.oderFlexRow}>
               <View>
                 <Image source={{uri: summaryData?.image}} style={style.img} />
               </View>
-              <View >
-                <Text style={style.oderName} numberOfLines={1}>{summaryData?.name}</Text>
+              <View>
+                <Text style={style.oderName} numberOfLines={1}>
+                  {summaryData?.name}
+                </Text>
                 <Text style={style.quantityName}>
                   Quantity: {Route.params.Quantity}
                 </Text>

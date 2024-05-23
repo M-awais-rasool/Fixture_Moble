@@ -7,6 +7,8 @@ import {ScrollView} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import Loader from '../../../component/loader/Loader';
 import Product_cart from '../../../component/product_cart/Product_cart';
+import {isNetworkAvailable} from '../../../api/Api';
+import {Toast} from 'react-native-toast-message/lib/src/Toast';
 
 export default function Main_Sub_Categori() {
   const Route: any = useRoute();
@@ -19,9 +21,26 @@ export default function Main_Sub_Categori() {
   }, []);
   const getCategoriData = async () => {
     setLoading(true);
-    const getSubCategoriData = await get_SubCategory_products(Route.params.ID);
-    setGetData(getSubCategoriData);
-    setLoading(false);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const getSubCategoriData = await get_SubCategory_products(
+          Route.params.ID,
+        );
+        setGetData(getSubCategoriData);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
+    }
   };
   return (
     <ScrollView style={style.mainContainer}>

@@ -18,6 +18,7 @@ import {useGlobalContext} from '../../component/context.tsx/Context';
 import Buttons from '../../component/buttons/Buttons';
 import PopUp from '../../component/popUp/PopUp';
 import {update_shipping_Address} from '../../api/services/Put';
+import {isNetworkAvailable} from '../../api/Api';
 const windowWidth = Dimensions.get('window').width;
 
 export default function Product_Details() {
@@ -40,83 +41,120 @@ export default function Product_Details() {
   }, []);
   const getData = async () => {
     setLoading(true);
-    const getProduct: any = await get_products(Route.params.Id);
-    console.log(getProduct);
-    setData(getProduct);
-    getProduct?.productMedias?.map((val: any, index: any) => {
-      if (index < 1) {
-        setMainImg(val.imgUrl);
-      } else if (val.isThumbNail == true) {
-        setMainImg(null);
-        setMainImg(val.imgUrl);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const getProduct: any = await get_products(Route.params.Id);
+        console.log(getProduct);
+        setData(getProduct);
+        getProduct?.productMedias?.map((val: any, index: any) => {
+          if (index < 1) {
+            setMainImg(val.imgUrl);
+          } else if (val.isThumbNail == true) {
+            setMainImg(null);
+            setMainImg(val.imgUrl);
+          }
+        });
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
       }
-    });
-    setLoading(false);
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
+    }
   };
   //waish list
   const addToWishList = async () => {
-    let token = await AsyncStorage.getItem('token');
-    if (token) {
-      if (data?.isInWishList) {
-        const res = await remove_to_WishList(data?.productId);
-        if (res.status == 200) {
-          getData();
-          Toast.show({
-            type: 'success',
-            text1: res.data.message + '.😒',
-            visibilityTime: 2000,
-          });
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      let token = await AsyncStorage.getItem('token');
+      if (token) {
+        if (data?.isInWishList) {
+          const res = await remove_to_WishList(data?.productId);
+          if (res.status == 200) {
+            getData();
+            Toast.show({
+              type: 'success',
+              text1: res.data.message + '.😒',
+              visibilityTime: 2000,
+            });
+          } else {
+            Toast.show({
+              type: 'error',
+              text1: res.data.message,
+              visibilityTime: 3000,
+            });
+          }
         } else {
-          Toast.show({
-            type: 'error',
-            text1: res.data.message,
-            visibilityTime: 3000,
-          });
+          const res = await add_to_WishList(data?.productId);
+          if (res.status == 200) {
+            getData();
+            Toast.show({
+              type: 'success',
+              text1: res.data.message + '.😍',
+              visibilityTime: 2000,
+            });
+          } else {
+            Toast.show({
+              type: 'error',
+              text1: res.data.message,
+              visibilityTime: 3000,
+            });
+          }
         }
       } else {
-        const res = await add_to_WishList(data?.productId);
-        if (res.status == 200) {
-          getData();
-          Toast.show({
-            type: 'success',
-            text1: res.data.message + '.😍',
-            visibilityTime: 2000,
-          });
-        } else {
-          Toast.show({
-            type: 'error',
-            text1: res.data.message,
-            visibilityTime: 3000,
-          });
-        }
+        AsyncStorage.clear();
+        nav.navigate('SignIn');
       }
     } else {
-      AsyncStorage.clear();
-      nav.navigate('SignIn');
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
     }
   };
   // add To cart
   const addToCart = async () => {
-    let token = await AsyncStorage.getItem('token');
-    if (token) {
-      const res: any = await add_to_Cart(data?.productId, quantity);
-      if (res.status == 200) {
-        context.isAdd_To_Cart_State(context.addToCartState + quantity);
-        Toast.show({
-          type: 'success',
-          text1: res.data.message + '.😍',
-          visibilityTime: 3000,
-        });
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      let token = await AsyncStorage.getItem('token');
+      if (token) {
+        const res: any = await add_to_Cart(data?.productId, quantity);
+        if (res.status == 200) {
+          context.isAdd_To_Cart_State(context.addToCartState + quantity);
+          Toast.show({
+            type: 'success',
+            text1: res.data.message + '.😍',
+            visibilityTime: 3000,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: res.data.message,
+            visibilityTime: 3000,
+          });
+        }
       } else {
-        Toast.show({
-          type: 'error',
-          text1: res.data.message,
-          visibilityTime: 3000,
-        });
+        AsyncStorage.clear();
+        nav.navigate('SignIn');
       }
     } else {
-      AsyncStorage.clear();
-      nav.navigate('SignIn');
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
     }
   };
   const getAddress = async () => {
@@ -126,8 +164,21 @@ export default function Product_Details() {
     setAddressData(res);
   };
   const updateAddress = async () => {
-    const res = await update_shipping_Address(addressId);
-    getAddress();
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res = await update_shipping_Address(addressId);
+        getAddress();
+      } catch (error) {}
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
+    }
   };
   return (
     <>
@@ -177,7 +228,7 @@ export default function Product_Details() {
             <View style={style.line} />
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={style.Price}>Rs: {data?.price}</Text>
+              <Text style={style.Price}>Rs: {data?.discountPrice}</Text>
               <View style={{flexDirection: 'row', gap: Theme.fontSize.size10}}>
                 <TouchableOpacity onPress={() => addToWishList()}>
                   {data?.isInWishList ? (
@@ -204,16 +255,14 @@ export default function Product_Details() {
             </View>
             {data?.discountPrice > 0 && (
               <View style={style.rowContainer}>
-                <Text style={style.DiccountText}>
-                  Rs: {data?.discountPrice}
-                </Text>
+                <Text style={style.DiccountText}>Rs: {data?.price}</Text>
                 <Text style={style.DiccountOffText}>{data?.discount}% Off</Text>
               </View>
             )}
             {data?.quantity > 0 ? (
               <View
                 style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
-                <Text style={style.highlightText}>Quantity </Text>
+                <Text style={style.highlightText}>Quantity: </Text>
                 <TouchableOpacity
                   onPress={() => {
                     if (quantity > 1) {
@@ -294,7 +343,7 @@ export default function Product_Details() {
                     },
                   ]}>
                   <Buttons
-                    title={'Change'}
+                    title={'Change Location'}
                     onPress={() => {
                       setIsVisible(true);
                     }}

@@ -16,9 +16,6 @@ const style = StyleSheet.create({
     width: windowWidth / 1.2,
     alignItems: 'center',
     justifyContent: 'center',
-
-    // backgroundColor: '#FFFFFF',
-    // borderRadius: Theme.fontSize.size20,
   },
   passwordText: {
     fontWeight: '800',

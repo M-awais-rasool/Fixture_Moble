@@ -17,6 +17,8 @@ import AddressInfo from './AddressInfo';
 import ReturnsInfo from './ReturnsInfo';
 import CancellationInfo from './CancellationInfo';
 import Loader from '../../../component/loader/Loader';
+import {isNetworkAvailable} from '../../../api/Api';
+import Toast from 'react-native-toast-message';
 
 export default function UserProfile() {
   const Route: any = useRoute();
@@ -70,14 +72,27 @@ export default function UserProfile() {
   };
   const getData = async () => {
     setLoading(true);
-    let Token: any = await AsyncStorage.getItem('token');
-    setToken(Token);
-    if (Token) {
-      const res = await getUserData();
-      setdata(res);
-      setLoading(false);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        let Token: any = await AsyncStorage.getItem('token');
+        setToken(Token);
+        if (Token) {
+          const res = await getUserData();
+          setdata(res);
+          setLoading(false);
+        } else {
+          nav.replace('SignIn');
+        }
+      } catch (error) {}
     } else {
-      nav.replace('SignIn');
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
     }
   };
   const logOut = () => {

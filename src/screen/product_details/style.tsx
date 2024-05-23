@@ -18,8 +18,8 @@ const style = StyleSheet.create({
   mainImg: {
     width: '100%',
     // height: 200,
-    // objectFit:'fill',
-    aspectRatio: Theme.fontSize.size5 / 3.5,
+    objectFit: 'fill',
+    aspectRatio: Theme.fontSize.size5 / 4,
     borderTopRightRadius: Theme.fontSize.size5,
     borderTopLeftRadius: Theme.fontSize.size5,
   },
@@ -51,7 +51,6 @@ const style = StyleSheet.create({
     fontWeight: '500',
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',
-    // textDecorationColor:'gray'
   },
   DiccountOffText: {
     fontSize: Theme.fontSize.size12,
@@ -60,7 +59,7 @@ const style = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
-    gap:Theme.fontSize.size5,
+    gap: Theme.fontSize.size5,
     marginTop: Theme.fontSize.size3,
     alignItems: 'center',
   },
@@ -102,15 +101,14 @@ const style = StyleSheet.create({
   },
   deliveryInnerContainer2: {
     width: '50%',
-    // flexDirection:'row'
     paddingHorizontal: Theme.fontSize.size10,
     paddingTop: Theme.fontSize.size10,
-    rowGap:Theme.fontSize.size10,
+    rowGap: Theme.fontSize.size10,
   },
   line1: {
     marginTop: Theme.fontSize.size5,
     height: Theme.fontSize.size90,
-    width:Theme.fontSize.size1,
+    width: Theme.fontSize.size1,
     backgroundColor: Theme.colors.disable,
   },
 });

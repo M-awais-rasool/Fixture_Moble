@@ -1,8 +1,11 @@
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import Theme from '../../theme/Theme';
-
-export default function GoogleBtn(props: any) {
+interface GoogleBtn {
+  lebel?: string;
+  onPress?: () => void;
+}
+export default function GoogleBtn(props: GoogleBtn) {
   return (
     <View>
       <TouchableOpacity style={style.googleBtn}>

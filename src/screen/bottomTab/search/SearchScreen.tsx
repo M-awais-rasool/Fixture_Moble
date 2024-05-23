@@ -14,6 +14,7 @@ import {useGlobalContext} from '../../../component/context.tsx/Context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Theme from '../../../theme/Theme';
 import Loader from '../../../component/loader/Loader';
+import {isNetworkAvailable} from '../../../api/Api';
 
 export default function MessageScreen() {
   const [data, setData] = useState<any>();
@@ -21,7 +22,7 @@ export default function MessageScreen() {
   const nav: any = useNavigation();
   const context: any = useGlobalContext();
   const [loading, setLoading] = useState(false);
-
+  const [img, setimg] = useState('');
   useFocusEffect(
     React.useCallback(() => {
       getData();
@@ -29,31 +30,53 @@ export default function MessageScreen() {
   );
   const getData = async () => {
     setLoading(true);
-    const res: any = await get_search_product(Route.params?.key);
-    setLoading(false);
-    setData(res);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res: any = await get_search_product(Route.params?.key);
+        console.log(res)
+        setimg(res.productMedias);
+        setLoading(false);
+        setData(res);
+      } catch (error: any) {
+        setLoading(false);
+        console.log(error);
+      }
+    }
   };
   const addToCart = async (id: any) => {
     let token = await AsyncStorage.getItem('token');
-    if (token) {
-      const res: any = await add_to_Cart(id, 1);
-      if (res.status == 200) {
-        context.isAdd_To_Cart_State(context.addToCartState + 1);
-        Toast.show({
-          type: 'success',
-          text1: res.data.message + '.😍',
-          visibilityTime: 3000,
-        });
+    setLoading(true);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      if (token) {
+        const res: any = await add_to_Cart(id, 1);
+        if (res.status == 200) {
+          context.isAdd_To_Cart_State(context.addToCartState + 1);
+          Toast.show({
+            type: 'success',
+            text1: res.data.message + '.😍',
+            visibilityTime: 3000,
+          });
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: res.data.message,
+            visibilityTime: 3000,
+          });
+        }
       } else {
-        Toast.show({
-          type: 'error',
-          text1: res.data.message,
-          visibilityTime: 3000,
-        });
+        AsyncStorage.clear();
+        nav.navigate('SignIn');
       }
     } else {
-      AsyncStorage.clear();
-      nav.navigate('SignIn');
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
     }
   };
   return (
@@ -68,7 +91,9 @@ export default function MessageScreen() {
             data.map((val: any, index: any) => (
               <View key={index}>
                 <Product_cart
+                  type={'search'}
                   data={val}
+                  img={data}
                   onCartPress={() => {
                     addToCart(val.productId);
                   }}

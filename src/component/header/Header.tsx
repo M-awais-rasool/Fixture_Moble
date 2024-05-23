@@ -12,7 +12,7 @@ import TextInputs from '../textInput/TextInputs';
 import {useGlobalContext} from '../context.tsx/Context';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {get_products_quantity} from '../../api/services/Get';
-import { Screen } from 'react-native-screens';
+import {Screen} from 'react-native-screens';
 const windowWidth = Dimensions.get('window').width;
 
 export default function Header() {
@@ -25,7 +25,11 @@ export default function Header() {
   }, []);
   const getData = async () => {
     const res = await get_products_quantity();
-    context.isAdd_To_Cart_State(res);
+    if (res != null) {
+      context.isAdd_To_Cart_State(res);
+    } else {
+      context.isAdd_To_Cart_State(0);
+    }
   };
   return (
     <View style={{height: 103}}>
@@ -34,29 +38,30 @@ export default function Header() {
         style={style.BackgroundImg}>
         <View style={style.container}>
           <Image source={require('../../assets/images/notification-add.png')} />
-          <View>
-            <TouchableOpacity
-              onPress={() => {
-                nav.navigate('Add_To_Cart');
-              }}>
+          <TouchableOpacity
+            onPress={() => {
+              nav.navigate('Add_To_Cart');
+            }}>
+            <View>
               <Image
                 source={require('../../assets/images/shopping-cart.png')}
               />
-            </TouchableOpacity>
+            </View>
             <View style={style.addTocartContainer}>
               <Text style={style.addToCartText}>{context.addToCartState}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={{alignItems: 'center', marginTop: -6}}>
           <TextInputs
             onChange={setSearch}
-            placeholder={'Search product here'}
+            placeholder={'Search products here'}
             style={{
               width: windowWidth / 1.2,
               backgroundColor: 'white',
               borderColor: 'white',
               elevation: 5,
+              color: 'black',
             }}
             icon={
               search == '' ? (
@@ -66,7 +71,7 @@ export default function Header() {
               ) : (
                 <TouchableOpacity
                   onPress={() => {
-                    nav.navigate('searchScrenn',{key:search});
+                    nav.navigate('searchScrenn', {key: search});
                   }}>
                   <Image source={require('../../assets/images/search.png')} />
                 </TouchableOpacity>

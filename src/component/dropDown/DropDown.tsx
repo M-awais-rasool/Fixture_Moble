@@ -1,11 +1,23 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ViewStyle} from 'react-native';
 import React from 'react';
 import {TouchableOpacity, Image} from 'react-native';
 import {memo, useEffect, useState} from 'react';
 import Theme from '../../theme/Theme';
 import {ScrollView} from 'react-native-gesture-handler';
-
-export default function DropDown(props: any) {
+interface DropDown {
+  disabled?: boolean;
+  style?: any;
+  Textlebel?: string;
+  disable?: boolean;
+  lebel?: string;
+  Data?: any;
+  type?: string;
+  onPress?: () => void;
+  checkCity?: () => void;
+  setLebel2?: (i: any) => void;
+  setLebel?: (i: any) => void;
+}
+export default function DropDown(props: DropDown) {
   const [isClicked, setisClicked] = useState(false);
 
   return (
@@ -13,11 +25,11 @@ export default function DropDown(props: any) {
       <Text style={style.label}>{props.Textlebel}</Text>
       <View style={style.container}>
         <TouchableOpacity
-        disabled={props.disable}
-          style={[style.dropDownSelected,props.style]}
+          disabled={props.disable}
+          style={[style.dropDownSelected, props.style]}
           onPress={() => {
             setisClicked(!isClicked);
-            props.checkCity();
+            props.checkCity?.();
           }}>
           <Text style={style.genderlabel}>{props.lebel}</Text>
           {isClicked ? (
@@ -38,7 +50,7 @@ export default function DropDown(props: any) {
                 if (props.setLebel2) {
                   props.setLebel2('Select Your City');
                 }
-                props.setLebel(val);
+                props.setLebel?.(val);
               }}>
               <Text style={style.genderlabel}>{val}</Text>
             </TouchableOpacity>
@@ -76,7 +88,7 @@ const style = StyleSheet.create({
     elevation: Theme.fontSize.size10,
     backgroundColor: Theme.colors.white,
     position: 'absolute',
-    zIndex:Theme.fontSize.size1,
+    zIndex: Theme.fontSize.size1,
     borderWidth: Theme.fontSize.size1,
     borderColor: Theme.colors.disable,
     maxHeight: Theme.fontSize.size100,
@@ -98,6 +110,6 @@ const style = StyleSheet.create({
     fontSize: Theme.fontSize.size13,
     fontWeight: '500',
     paddingLeft: Theme.fontSize.size5,
-    opacity:0.7
+    opacity: 0.7,
   },
 });

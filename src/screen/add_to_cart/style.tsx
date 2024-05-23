@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import Theme from '../../theme/Theme';
-
+const windowWidth = Dimensions.get('window').width;
 const style = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#FFFFFF',
@@ -24,7 +24,7 @@ const style = StyleSheet.create({
     marginVertical: Theme.fontSize.size10,
     flexDirection: 'row',
     gap: Theme.fontSize.size10,
-    width:'100%'
+    overflow:'hidden'
   },
   img: {
     width: Theme.fontSize.size110,
@@ -64,7 +64,6 @@ const style = StyleSheet.create({
     fontWeight: '500',
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',
-    // textDecorationColor:'gray'
   },
   DiccountOffText: {
     fontSize: Theme.fontSize.size12,

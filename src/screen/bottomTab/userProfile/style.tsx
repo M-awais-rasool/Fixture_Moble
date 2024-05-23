@@ -16,7 +16,7 @@ const style = StyleSheet.create({
   Contianer: {
     borderRadius: Theme.fontSize.size10,
     borderColor: Theme.colors.borderColor,
-    borderWidth:Theme.fontSize.size1,
+    borderWidth: Theme.fontSize.size1,
     padding: Theme.fontSize.size10,
     backgroundColor: Theme.colors.white,
     elevation: Theme.fontSize.size2,
@@ -74,7 +74,7 @@ const style = StyleSheet.create({
     color: Theme.colors.redColor,
     fontWeight: '500',
     marginTop: -Theme.fontSize.size5,
-    marginLeft:Theme.fontSize.size5,
+    marginLeft: Theme.fontSize.size5,
     marginBottom: -Theme.fontSize.size5,
   },
   addressContainer: {
@@ -89,20 +89,20 @@ const style = StyleSheet.create({
   },
   statusFalseBtn: {
     backgroundColor: Theme.colors.white,
-    borderWidth:Theme.fontSize.size1,
+    borderWidth: Theme.fontSize.size1,
     borderColor: Theme.colors.disable,
     color: Theme.colors.black,
-    marginTop:Theme.fontSize.size10
+    marginTop: Theme.fontSize.size10,
   },
-  cameraImg:{
-    marginLeft:80,
-    marginTop:-30,
-    width:20,
-    height:20
+  cameraImg: {
+    marginLeft: Theme.fontSize.size80,
+    marginTop: -Theme.fontSize.size30,
+    width: Theme.fontSize.size20,
+    height: Theme.fontSize.size20,
   },
   dropPickerContainer: {
-    width: 200,
-    height: 120,
+    width: Theme.fontSize.size200,
+    height: Theme.fontSize.size120,
     backgroundColor: '#f0f0f0',
   },
   line1: {
@@ -110,11 +110,11 @@ const style = StyleSheet.create({
     width: '100%',
     backgroundColor: 'gray',
   },
-  dropPickerText:{
-    fontSize:Theme.fontSize.size12,
-    color:'black',
+  dropPickerText: {
+    fontSize: Theme.fontSize.size12,
+    color: 'black',
     fontWeight: '500',
-  }
+  },
 });
 
 export default style;

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "133632111232",
+    "project_id": "fixture-moble",
+    "storage_bucket": "fixture-moble.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133632111232:android:b2a1825a55cfd772222c65",
+        "android_client_info": {
+          "package_name": "com.fixture_moble"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgiE4MxqXafBkmM3ho05-UZuu53JKgjtE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

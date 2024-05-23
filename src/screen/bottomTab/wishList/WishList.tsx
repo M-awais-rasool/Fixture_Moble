@@ -9,6 +9,7 @@ import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from '../../../component/loader/Loader';
 import PopUp from '../../../component/popUp/PopUp';
+import {isNetworkAvailable} from '../../../api/Api';
 
 export default function WishList() {
   const [data, setData] = useState([]);
@@ -24,25 +25,53 @@ export default function WishList() {
   );
   const getData = async () => {
     setLoading(true);
-    let Token: any = await AsyncStorage.getItem('token');
-    setToken(Token);
-    if (Token) {
-      const wishListData: any = await get_WishLit_products();
-      setData(wishListData);
-      setLoading(false);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        let Token: any = await AsyncStorage.getItem('token');
+        setToken(Token);
+        if (Token) {
+          const wishListData: any = await get_WishLit_products();
+          setData(wishListData);
+          setLoading(false);
+        } else {
+          setLoading(false);
+          nav.replace('SignIn');
+        }
+      } catch (error) {
+        setLoading(false);
+      }
     } else {
-      setLoading(false);
-      nav.replace('SignIn');
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
     }
   };
   const removeToWishList = async () => {
-    const res = await remove_to_WishList(id);
-    getData();
-    if (res.status == 200) {
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res = await remove_to_WishList(id);
+        getData();
+        if (res.status == 200) {
+          Toast.show({
+            type: 'success',
+            text1: res.data.message + '.😒',
+            visibilityTime: 2000,
+          });
+        }
+      } catch (error) {}
+    } else {
       Toast.show({
-        type: 'success',
-        text1: res.data.message + '.😒',
-        visibilityTime: 2000,
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
       });
     }
   };

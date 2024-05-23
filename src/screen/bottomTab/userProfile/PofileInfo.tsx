@@ -77,14 +77,14 @@ export default function PofileInfo(props: any) {
     };
 
     const res = await user_Profile_Update(data);
-    console.log(res)
+    console.log(res);
 
-    if(res.status == 200){
-       Toast.show({
+    if (res.status == 200) {
+      Toast.show({
         type: 'success',
         text1: 'Profile Update Successfully',
         visibilityTime: 3000,
-       })
+      });
     }
   };
   return (
@@ -110,22 +110,14 @@ export default function PofileInfo(props: any) {
           </TouchableOpacity>
         </View>
         <View style={{rowGap: 10}}>
-          <TextInputs
-            onChange={setFName}
-            lebel={'First Name'}
-            value={fName}
-          />
-          <TextInputs
-            onChange={setLName}
-            lebel={'Last Name'}
-            value={lName}
-          />
+          <TextInputs onChange={setFName} lebel={'First Name'} value={fName} />
+          <TextInputs onChange={setLName} lebel={'Last Name'} value={lName} />
         </View>
         <View style={style.contentCenter}>
           <Buttons
             title={'Update Profile'}
             onPress={() => {
-              sendUpdateData()
+              sendUpdateData();
             }}
             style={style.logOutbtn}
           />

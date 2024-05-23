@@ -5,6 +5,10 @@ export const Login = async (data: any) => {
   return res;
 };
 
+export const userCreate = async (data: any) => {
+  const res: any = await API.post('Authenticate/Register', data);
+  return res;
+};
 export const add_to_WishList = async (id: any) => {
   const res: any = await API.post(`WishList/add-to-WishList/${id}`);
   return res;

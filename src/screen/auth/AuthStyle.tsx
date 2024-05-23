@@ -1,38 +1,38 @@
 import {StyleSheet} from 'react-native';
+import Theme from '../../theme/Theme';
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Theme.colors.white,
     height: '100%',
   },
   imgContainer: {
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: Theme.fontSize.size50,
   },
   InputContainer: {
-    marginHorizontal: 40,
+    marginHorizontal: Theme.fontSize.size40,
   },
   forgotText: {
     textAlign: 'right',
-    color: '#F29900',
-    fontSize: 14,
+    color: Theme.colors.BtnColor,
+    fontSize: Theme.fontSize.size14,
     fontWeight: '600',
   },
   orText: {
     textAlign: 'center',
-    marginVertical: 20,
-    fontSize: 16,
+    marginVertical: Theme.fontSize.size20,
+    fontSize: Theme.fontSize.size16,
     fontWeight: '600',
-    color:'black'
+    color: Theme.colors.black,
   },
-  CreateAccText:{
-    fontSize:14,
-    fontWeight:'600',
-    color:'black',
-    textAlign:'center',
-    marginVertical:20
-  }
-
+  CreateAccText: {
+    fontSize: Theme.fontSize.size14,
+    fontWeight: '600',
+    color: Theme.colors.black,
+    textAlign: 'center',
+    marginVertical: Theme.fontSize.size20,
+  },
 });
 
 export default style;

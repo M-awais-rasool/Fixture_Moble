@@ -4,7 +4,7 @@ const windowWidth = Dimensions.get('window').width;
 
 const style = StyleSheet.create({
   mainContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Theme.colors.white,
     height: '100%',
     paddingHorizontal: Theme.fontSize.size20,
     width: '100%',

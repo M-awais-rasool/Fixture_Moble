@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {View, Text, TouchableOpacity, Dimensions, ViewStyle} from 'react-native';
 import React, {useState} from 'react';
 import style from './style';
 import {Overlay} from 'react-native-elements';
@@ -18,7 +18,7 @@ interface popUpProps {
   btnLebel?: string;
   data?: any;
   lebel?: string;
-  setIsVisible: (i: boolean) => void;
+  setIsVisible?: (i: boolean) => void;
   setAdressId?: (i: any) => void;
   functionCall?: () => void;
 }
@@ -77,14 +77,14 @@ export default function PopUp(props: popUpProps) {
                 title={props.btnLebel}
                 onPress={() => {
                   props.functionCall?.();
-                  props.setIsVisible(false);
+                  props.setIsVisible?.(false);
                 }}
                 style={style.removeBtn}
               />
               <Buttons
                 title={'Cancel'}
                 onPress={() => {
-                  props.setIsVisible(false);
+                  props.setIsVisible?.(false);
                 }}
                 style={[
                   style.removeBtn,
@@ -115,7 +115,7 @@ export default function PopUp(props: popUpProps) {
                 title={'Ok'}
                 style={style.removeBtn}
                 onPress={() => {
-                  props.setIsVisible(false);
+                  props.setIsVisible?.(false);
                 }}
               />
             </View>
@@ -127,7 +127,7 @@ export default function PopUp(props: popUpProps) {
               <Buttons
                 title={'Add'}
                 onPress={() => {
-                  props.setIsVisible(false);
+                  props.setIsVisible?.(false);
                   nav.navigate('UserProfile', {Btn: 4});
                 }}
                 style={style.cancelBtn}
@@ -164,7 +164,7 @@ export default function PopUp(props: popUpProps) {
                   title={'Save'}
                   onPress={() => {
                     props.functionCall?.();
-                    props.setIsVisible(false);
+                    props.setIsVisible?.(false);
                   }}
                   style={style.updateBtn}
                 />
@@ -172,7 +172,7 @@ export default function PopUp(props: popUpProps) {
               <Buttons
                 title={'Cancel'}
                 onPress={() => {
-                  props.setIsVisible(false);
+                  props.setIsVisible?.(false);
                 }}
                 style={style.cancelBtn}
               />
@@ -206,7 +206,7 @@ export default function PopUp(props: popUpProps) {
               <Buttons
                 title={'Cancel'}
                 onPress={() => {
-                  props.setIsVisible(false);
+                  props.setIsVisible?.(false);
                 }}
                 style={style.cancelBtn}
               />

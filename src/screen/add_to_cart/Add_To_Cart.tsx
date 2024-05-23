@@ -11,6 +11,8 @@ import {add_to_Cart_Quantity} from '../../api/services/Post';
 import {remove_to_cartQuantity} from '../../api/services/Put';
 import Theme from '../../theme/Theme';
 import Buttons from '../../component/buttons/Buttons';
+import {isNetworkAvailable} from '../../api/Api';
+import Toast from 'react-native-toast-message';
 
 export default function Add_To_Cart() {
   const [data, setData] = useState<any>([]);
@@ -28,52 +30,117 @@ export default function Add_To_Cart() {
   }, []);
   const getData = async () => {
     setLoading(true);
-    const res = await get_cart_products();
-    setData(res);
-    TotalPrice(res);
-    setLoading(false);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res = await get_cart_products();
+        setData(res);
+        TotalPrice(res);
+        setLoading(false);
+      } catch (error: any) {
+        Toast.show({
+          type: 'error',
+          text1: error,
+          position: 'top',
+          swipeable: true,
+          autoHide: false,
+        });
+      }
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
+    }
   };
   const TotalPrice = (data: any) => {
-    setSubtotal(0);
-    setDiscount(0);
-    setTotal(0);
-    setTimeout(() => {
-      data?.cartProduct?.map((val: any) => {
-        setSubtotal(val.totalDiscountPrice + subtotal);
-        setTotal(val.totalPrice + total);
-        setDiscount(total - subtotal);
-      });
-    }, 2000);
+    let SubtotalPrice;
+    let totalPrice;
+    let DiscountPrice;
+    data?.cartProduct?.map((val: any) => {
+      SubtotalPrice = val.totalDiscountPrice + subtotal;
+      totalPrice = val.totalPrice + total;
+      DiscountPrice = total - subtotal;
+    });
+    setSubtotal(SubtotalPrice);
+    setTotal(totalPrice);
+    setDiscount(DiscountPrice);
   };
 
   const DaleteItem = async () => {
-    const res = await remove_to_cart(id);
-    if (res.status == 200) {
-      getData();
-      const res = await get_products_quantity();
-      context.isAdd_To_Cart_State(res);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res1 = await remove_to_cart(id);
+        getData();
+        const res = await get_products_quantity();
+        context.isAdd_To_Cart_State(res);
+      } catch (error: any) {
+        Toast.show({
+          type: 'error',
+          text1: error,
+          position: 'bottom',
+          swipeable: true,
+          autoHide: false,
+        });
+      }
     } else {
-      console.log('cart Error' + res.status);
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
     }
   };
   const addQuantity = async (id: any) => {
-    const res = await add_to_Cart_Quantity(id);
-    if (res.status == 200) {
-      const res1 = await get_cart_products();
-      TotalPrice(res1);
-      const res2 = await get_products_quantity();
-      context.isAdd_To_Cart_State(res2);
-      setData(res1);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res = await add_to_Cart_Quantity(id);
+        const res1 = await get_cart_products();
+        TotalPrice(res1);
+        const res2 = await get_products_quantity();
+        context.isAdd_To_Cart_State(res2);
+        setData(res1);
+      } catch (error: any) {
+        console.log(error);
+      }
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
     }
   };
   const removeQuantity = async (id: any) => {
-    const res = await remove_to_cartQuantity(id);
-    if (res.status == 200) {
-      const res1 = await get_cart_products();
-      TotalPrice(res1);
-      const res2 = await get_products_quantity();
-      context.isAdd_To_Cart_State(res2);
-      setData(res1);
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res = await remove_to_cartQuantity(id);
+        const res1 = await get_cart_products();
+        TotalPrice(res1);
+        const res2 = await get_products_quantity();
+        context.isAdd_To_Cart_State(res2);
+        setData(res1);
+      } catch (error: any) {
+        console.log(error);
+      }
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: 'No internet connection available!',
+        position: 'bottom',
+        swipeable: true,
+        autoHide: false,
+      });
     }
   };
   return (
@@ -101,15 +168,15 @@ export default function Add_To_Cart() {
                         />
                       </TouchableOpacity>
                     </View>
-                    <Text style={style.productNameText} numberOfLines={1}>
-                      {val.productName}
-                    </Text>
-                    <Text style={style.Price}>Rs: {val.price}</Text>
+                    <View style={{width: '100%'}}>
+                      <Text style={style.productNameText} numberOfLines={1}>
+                        {val.productName}
+                      </Text>
+                    </View>
+                    <Text style={style.Price}>Rs: {val.discountPrice}</Text>
                     {val.discountPrice > 0 && (
                       <View style={style.rowContainer}>
-                        <Text style={style.DiccountText}>
-                          Rs: {val.discountPrice}
-                        </Text>
+                        <Text style={style.DiccountText}>Rs: {val.price}</Text>
                         <Text style={style.DiccountOffText}>
                           {val.discount}% Off
                         </Text>

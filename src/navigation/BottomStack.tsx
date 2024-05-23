@@ -7,6 +7,7 @@ import Main_Sub_Categori from '../screen/main_Categori_details/main_sub_categori
 import Product_Details from '../screen/product_details/Product_Details';
 import Add_To_Cart from '../screen/add_to_cart/Add_To_Cart';
 import BuyNow from '../screen/buyNow/BuyNow';
+import AllProduct from '../screen/allPorduct/AllProduct';
 
 export default function BottomStack() {
   const Stack = createStackNavigator();
@@ -25,6 +26,7 @@ export default function BottomStack() {
         <Stack.Screen name="Product_Details" component={Product_Details} />
         <Stack.Screen name="BuyNow" component={BuyNow} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
+        <Stack.Screen name="AllProduct" component={AllProduct} />
       </Stack.Navigator>
     </>
   );

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
+import NetInfo from '@react-native-community/netinfo';
 
 export const APIURl = 'https://fixturesmobel.com:446/Api/';
 
@@ -32,10 +33,9 @@ API.interceptors.response.use(
   async function (error: any) {
     let errors = JSON.stringify(error.response.status);
     let messg = JSON.stringify(error.response.data.message);
-    console.log(messg)
+    console.log(messg);
 
     if (errors === '401') {
-      console.log('API Error');
       const res = {
         ...error,
         data: {status: 401, ...error},
@@ -47,10 +47,22 @@ API.interceptors.response.use(
         data: {status: 400, message: messg},
       };
       return res;
+    } else if (errors == '500') {
+      const res = {
+        ...error,
+        data: {status: 500, message: messg},
+      };
+      return res;
     }
   },
 );
-
+export const isNetworkAvailable = async () => {
+  let response: any = false;
+  await NetInfo.fetch().then(networkState => {
+    response = networkState.isConnected && networkState.isInternetReachable;
+  });
+  return response;
+};
 export const askPermision = async (item: any) => {
   if (item === 'camera') {
     let response;

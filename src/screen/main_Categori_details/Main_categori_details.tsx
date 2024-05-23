@@ -7,6 +7,7 @@ import {ScrollView} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import Loader from '../../component/loader/Loader';
 import Theme from '../../theme/Theme';
+import * as Animatable from 'react-native-animatable';
 
 export default function Main_categori_details() {
   const Route: any = useRoute();
@@ -37,18 +38,22 @@ export default function Main_categori_details() {
   return (
     <ScrollView style={style.mainContainer}>
       <View>
-        <Text
-          style={[style.mainTextHeading, {marginTop: Theme.fontSize.size20}]}>
-          {Route.params?.name}
-        </Text>
-        <Slider
-          type={''}
-          data={Route.params.data}
-          onPress={(data: any) => {
-            changeData(data);
-          }}
-        />
-        <Text
+        <Animatable.View animation={'fadeInDown'} duration={1500}>
+          <Text
+            style={[style.mainTextHeading, {marginTop: Theme.fontSize.size20}]}>
+            {Route.params?.name}
+          </Text>
+          <Slider
+            type={''}
+            data={Route.params.data}
+            onPress={(data: any) => {
+              changeData(data);
+            }}
+          />
+        </Animatable.View>
+        <Animatable.Text
+          animation={'slideInUp'}
+          duration={2000}
           style={[
             style.mainTextHeading,
             {
@@ -57,13 +62,16 @@ export default function Main_categori_details() {
             },
           ]}>
           {name}
-        </Text>
+        </Animatable.Text>
         {loading ? (
           <View style={style.mainContainer}>
             <Loader />
           </View>
         ) : (
-          <View style={style.container}>
+          <Animatable.View
+            animation={'slideInUp'}
+            duration={1500}
+            style={style.container}>
             {getData?.map((val: any, index: any) => (
               <TouchableOpacity
                 style={style.innerContainer}
@@ -74,22 +82,26 @@ export default function Main_categori_details() {
                     name: val.name,
                   });
                 }}>
-                <View
+                <Animatable.View
                   style={{
                     padding: Theme.fontSize.size10,
                     backgroundColor: 'white',
                     alignItems: 'center',
                     borderRadius: Theme.fontSize.size5,
-                    // justifyContent:'center'
                   }}>
-                  <Image source={{uri: val.image}} style={style.img} />
+                  <Animatable.Image
+                    animation={'zoomIn'}
+                    duration={1200}
+                    source={{uri: val.image}}
+                    style={style.img}
+                  />
                   <Text style={style.containerText} numberOfLines={1}>
                     {val.name}
                   </Text>
-                </View>
+                </Animatable.View>
               </TouchableOpacity>
             ))}
-          </View>
+          </Animatable.View>
         )}
       </View>
     </ScrollView>

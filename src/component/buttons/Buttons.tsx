@@ -1,12 +1,19 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ViewStyle} from 'react-native';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import Theme from '../../theme/Theme';
-
-export default function Buttons(props: any) {
+interface Buttons {
+  disabled?: boolean;
+  title?: string;
+  style?: ViewStyle;
+  onPress?: () => void;
+}
+export default function Buttons(props: Buttons) {
   return (
     <View>
-      <TouchableOpacity onPress={() => props.onPress()} disabled={props.disabled}>
+      <TouchableOpacity
+        onPress={() => props.onPress?.()}
+        disabled={props.disabled}>
         <Text style={[style.btn, props.style]}>{props.title}</Text>
       </TouchableOpacity>
     </View>
@@ -15,12 +22,12 @@ export default function Buttons(props: any) {
 
 const style = StyleSheet.create({
   btn: {
-    backgroundColor: '#F29900',
+    backgroundColor: Theme.colors.BtnColor,
     padding: Theme.fontSize.size10,
     textAlign: 'center',
     textAlignVertical: 'center',
     marginTop: Theme.fontSize.size20,
-    color: 'white',
+    color: Theme.colors.white,
     fontSize: Theme.fontSize.size13,
     fontWeight: '500',
     borderRadius: Theme.fontSize.size5,
