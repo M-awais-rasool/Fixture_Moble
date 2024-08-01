@@ -59,7 +59,7 @@ const style = StyleSheet.create({
     marginBottom: Theme.fontSize.size5,
   },
   profileImg: {
-    width: 160,
+    width: Theme.fontSize.size160,
     height: Theme.fontSize.size160,
     borderRadius: Theme.fontSize.size100,
   },
