@@ -61,10 +61,12 @@ const style = StyleSheet.create({
     borderColor: Theme.colors.blueColor,
   },
   addressContainer: {
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     paddingHorizontal: Theme.fontSize.size10,
     flexDirection: 'row',
     alignItems: 'center',
+    flex:1,
+    marginVertical:5
   },
 });
 

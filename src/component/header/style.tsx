@@ -19,14 +19,14 @@ const style = StyleSheet.create({
     right: -Theme.fontSize.size15,
     alignItems: 'center',
     justifyContent: 'center',
-    width: Theme.fontSize.size25,
-    height: Theme.fontSize.size25,
+    width: Theme.fontSize.size20,
+    height: Theme.fontSize.size20,
     backgroundColor: Theme.colors.BtnColor,
     borderRadius: Theme.fontSize.size20,
   },
   addToCartText: {
     color: Theme.colors.white,
-    fontSize: Theme.fontSize.size16,
+    fontSize: Theme.fontSize.size12,
     fontWeight: '800',
 
     // textAlign: 'center',

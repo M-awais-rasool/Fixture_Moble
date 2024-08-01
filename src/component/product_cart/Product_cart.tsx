@@ -24,7 +24,20 @@ export default function Product_cart(props: DropDown) {
           props.onPress?.();
         }}
         style={style.subCategoriInnerContainer}>
-        <Image source={{uri: props.data.image}} style={style.subCategoriImg} />
+        {props.type == 'search' ? (
+          props?.data?.productMedias.map((val:any,index:any) => (
+            index == 0 &&
+            <Image
+              source={{uri: val.imgUrl}}
+              style={style.subCategoriImg}
+            />
+          ))
+        ) : (
+          <Image
+            source={{uri: props.data.image}}
+            style={style.subCategoriImg}
+          />
+        )}
         <View
           style={{
             padding: Theme.fontSize.size5,
@@ -81,7 +94,7 @@ const style = StyleSheet.create({
     // padding: 5,
     margin: Theme.fontSize.size5,
     overflow: 'hidden',
-    width: windowWidth / 2.5,
+    width: windowWidth / 2.6,
     elevation: Theme.fontSize.size3,
     borderRadius: Theme.fontSize.size5,
     borderWidth: Theme.fontSize.size1,

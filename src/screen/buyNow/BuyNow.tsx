@@ -23,10 +23,12 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import Loader from '../../component/loader/Loader';
 import {isNetworkAvailable} from '../../api/Api';
 import Toast from 'react-native-toast-message';
+import {add_order} from '../../api/services/Post';
 
 export default function BuyNow() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [comment, setComment] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
   const [shippingAddress, setShippingAddress] = useState('');
   const [addressData, setAddressData] = useState<any>();
@@ -101,6 +103,34 @@ export default function BuyNow() {
       nav.navigate('SignIn');
     }
   };
+  const sendOrder = async () => {
+    const data = {
+      quantity: Route.params.Quantity,
+      comment: comment,
+      city: checked ? addressData?.city : cityLebel,
+      address: checked ? addressData?.address : stateLebel,
+      phoneNo: checked ? addressData?.phoneNo : phoneNo,
+      firstName: checked ? addressData?.firstName : name,
+      email: checked ? addressData?.email : email,
+      shippedOnDefaultAddress: checked ? true : false,
+    };
+    const res = await add_order(Route.params.Id, data);
+    if (res.status == 'Success') {
+      Toast.show({
+        type: 'success',
+        text1: res.message + '.😍',
+        visibilityTime: 2500,
+      });
+      nav.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'Home',
+          },
+        ],
+      });
+    }
+  };
   return (
     <ScrollView style={style.mainContainer}>
       {loading ? (
@@ -124,6 +154,7 @@ export default function BuyNow() {
                   },
                 ]}>
                 <RadioButton
+                  color={'#F29900'}
                   value="first"
                   status={checked ? 'checked' : 'unchecked'}
                   onPress={() => {
@@ -151,7 +182,9 @@ export default function BuyNow() {
                   readOnly={checked ? true : false}
                   style={checked && {opacity: 0.5}}
                 />
-                {email == '' || email.match(emailValidation) ? (
+                {checked == true ||
+                email == '' ||
+                email.match(emailValidation) ? (
                   ''
                 ) : (
                   <Text style={style.emailError}>Email is not valid</Text>
@@ -208,13 +241,56 @@ export default function BuyNow() {
                   readOnly={checked ? true : false}
                   style={checked && {opacity: 0.5}}
                 />
+                {checked == true || phoneNo == '' || phoneNo.length > 10 ? (
+                  ''
+                ) : (
+                  <Text style={style.emailError}>
+                    Please Enter Valid Phone No
+                  </Text>
+                )}
+                <TextInputs
+                  lebel={'Comment'}
+                  placeholder={'Something about Product'}
+                  onChange={setComment}
+                  value={comment}
+                  multiline={true}
+                  style={{height: 60, textAlignVertical: 'top'}}
+                />
               </View>
               <View style={{alignItems: 'center'}}>
-                <Buttons
-                  title={'Place Order'}
-                  onPress={() => {}}
-                  style={{paddingHorizontal: Theme.fontSize.size30}}
-                />
+                {checked == false ? (
+                  name != '' &&
+                  email != '' &&
+                  phoneNo.length > 10 &&
+                  email.match(emailValidation) &&
+                  stateLebel != 'Select Your State' &&
+                  cityLebel != 'Select Your City' ? (
+                    <Buttons
+                      title={'Place Order'}
+                      onPress={() => {
+                        sendOrder();
+                      }}
+                      style={{paddingHorizontal: Theme.fontSize.size30}}
+                    />
+                  ) : (
+                    <Buttons
+                      disabled={true}
+                      title={'Place Order'}
+                      style={{
+                        paddingHorizontal: Theme.fontSize.size30,
+                        backgroundColor: 'gray',
+                      }}
+                    />
+                  )
+                ) : (
+                  <Buttons
+                    title={'Place Order'}
+                    onPress={() => {
+                      sendOrder();
+                    }}
+                    style={{paddingHorizontal: Theme.fontSize.size30}}
+                  />
+                )}
               </View>
             </View>
             <PopUp
@@ -226,10 +302,10 @@ export default function BuyNow() {
           <View style={[style.Contianer, {marginTop: Theme.fontSize.size10}]}>
             <Text style={[style.mainTextHeading]}>Order Summary</Text>
             <View style={style.oderFlexRow}>
-              <View>
+              <View style={{flex: 1}}>
                 <Image source={{uri: summaryData?.image}} style={style.img} />
               </View>
-              <View>
+              <View style={{flex: 1}}>
                 <Text style={style.oderName} numberOfLines={1}>
                   {summaryData?.name}
                 </Text>

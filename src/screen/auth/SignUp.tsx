@@ -12,7 +12,6 @@ import style from './AuthStyle';
 import {useNavigation} from '@react-navigation/native';
 import TextInputs from '../../component/textInput/TextInputs';
 import Buttons from '../../component/buttons/Buttons';
-import GoogleBtn from '../../component/buttons/GoogleBtn';
 import Theme from '../../theme/Theme';
 import {isNetworkAvailable} from '../../api/Api';
 import Toast from 'react-native-toast-message';
@@ -117,6 +116,7 @@ export default function SignUp() {
           }}
           maxLength={11}
           lebel={'Phone No'}
+          keyboardType={'numeric'}
           placeholder={'Phone No'}
           icon={<Image source={require('../../assets/images/Phoneicon.png')} />}
         />
@@ -208,8 +208,8 @@ export default function SignUp() {
             title={'Sign up'}
           />
         )}
-        <Text style={style.orText}>Or</Text>
-        <GoogleBtn lebel={'Continue with Google'} />
+        {/* <Text style={style.orText}>Or</Text> */}
+        {/* <GoogleBtn lebel={'Continue with Google'} /> */}
         <Text style={style.CreateAccText}>
           Back to{' '}
           <TouchableWithoutFeedback

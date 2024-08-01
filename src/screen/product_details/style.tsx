@@ -96,8 +96,9 @@ const style = StyleSheet.create({
   deliveryInnerContainer1: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Theme.fontSize.size3,
+    // gap: Theme.fontSize.size3,
     flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   deliveryInnerContainer2: {
     width: '50%',

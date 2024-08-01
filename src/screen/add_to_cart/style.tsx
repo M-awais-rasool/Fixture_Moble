@@ -5,8 +5,9 @@ const style = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#FFFFFF',
     height: '100%',
-    paddingHorizontal: Theme.fontSize.size20,
+    paddingHorizontal: Theme.fontSize.size10,
     width: '100%',
+    // flex:1
   },
   MinText: {
     fontSize: Theme.fontSize.size16,
@@ -24,7 +25,8 @@ const style = StyleSheet.create({
     marginVertical: Theme.fontSize.size10,
     flexDirection: 'row',
     gap: Theme.fontSize.size10,
-    overflow:'hidden'
+    overflow:'hidden',
+    flex:1
   },
   img: {
     width: Theme.fontSize.size110,
@@ -35,10 +37,10 @@ const style = StyleSheet.create({
     fontSize: Theme.fontSize.size14,
     fontWeight: '600',
     color: Theme.colors.black,
-    marginTop: -Theme.fontSize.size10,
+    marginTop: -Theme.fontSize.size5,
+    width:'66%'
   },
   wishlistContainer: {
-    width: '68%',
     alignItems: 'flex-end',
     marginTop: -Theme.fontSize.size15,
   },

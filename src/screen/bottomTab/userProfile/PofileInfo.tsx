@@ -4,11 +4,12 @@ import TextInputs from '../../../component/textInput/TextInputs';
 import style from './style';
 import Buttons from '../../../component/buttons/Buttons';
 import PopUp from '../../../component/popUp/PopUp';
-import {askPermision} from '../../../api/Api';
+import {checkPermission, isNetworkAvailable} from '../../../api/Api';
 import ImagePicker from 'react-native-image-crop-picker';
 import {user_Profile_Update} from '../../../api/services/Put';
 import {Overlay} from 'react-native-elements';
 import Toast from 'react-native-toast-message';
+import {getUserData} from '../../../api/services/Get';
 
 export default function PofileInfo(props: any) {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,75 +17,83 @@ export default function PofileInfo(props: any) {
   const [img, setImg] = useState();
   const [fName, setFName] = useState('');
   const [lName, setLName] = useState('');
-  const [sendImg, setSendImg] = useState('');
 
   const imgSelected = async (id: any) => {
-    if (id == 1) {
-      const cameraPermission: any = await askPermision('camera');
-      console.warn(cameraPermission);
+    try {
+      let permissionType = id === 1 ? 'camera' : 'gallery';
+      const cameraPermission: any = await checkPermission(permissionType);
+
       if (cameraPermission.result === true) {
-        ImagePicker.openCamera({
-          width: 300,
-          height: 400,
-          cropping: true,
-          mediaType: 'photo',
-        }).then((image: any) => {
-          const filename = image.path?.replace(/^.*[\\\/]/, '');
+        let image: any;
+        if (id == 1) {
+          image = await ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+            mediaType: 'photo',
+          });
+        } else if (id == 2) {
+          image = await ImagePicker.openPicker({
+            width: 500,
+            height: 500,
+            cropping: true,
+            mediaType: 'photo',
+          });
+        }
+
+        if (image) {
+          const filename: any = image.path?.replace(/^.*[\\\/]/, '');
           const formData: any = new FormData();
           formData.append('ProfileImage', {
             uri: image.path,
             type: image.mime,
             name: filename,
           });
-          setSendImg(formData);
-          setImg(image?.path);
-        });
+          const res = await user_Profile_Update(formData);
+          setFName(res?.data?.firstName);
+          setLName(res?.data?.lastName);
+          setImg(res?.data?.profileImageUrl);
+        }
       }
-    } else if (id == 2) {
-      const cameraPermission: any = await askPermision('gallery');
-      if (cameraPermission.result === true) {
-        ImagePicker.openPicker({
-          width: 500,
-          height: 500,
-          cropping: true,
-          mediaType: 'photo',
-        }).then((image: any) => {
-          const filename = image.path?.replace(/^.*[\\\/]/, '');
-          const formData: any = new FormData();
-          formData.append('ProfileImage', {
-            uri: image.path,
-            type: image.mime,
-            name: filename,
-          });
-          setSendImg(formData);
-          setImg(image?.path);
-        });
-      }
+    } catch (error) {
+      console.error('Error selecting image:', error);
     }
   };
 
   useEffect(() => {
-    setFName(props.data?.firstName);
-    setLName(props.data?.lastName);
-    setImg(props.data?.profileImageUrl);
+    getData();
   }, []);
 
+  const getData = async () => {
+    const isConnected = await isNetworkAvailable();
+    if (isConnected) {
+      try {
+        const res = await getUserData();
+        setFName(res?.firstName);
+        setLName(res?.lastName);
+        setImg(res?.profileImageUrl);
+      } catch (e) {}
+    }
+  };
+
   const sendUpdateData = async () => {
-    let data = {
-      FirstName: fName,
-      LastName: lName,
-      ProfileImage: sendImg,
-    };
-
-    const res = await user_Profile_Update(data);
-    console.log(res);
-
-    if (res.status == 200) {
-      Toast.show({
-        type: 'success',
-        text1: 'Profile Update Successfully',
-        visibilityTime: 3000,
-      });
+    try {
+      const formData = new FormData();
+      formData.append('FirstName', fName);
+      formData.append('LastName', lName);
+      const res = await user_Profile_Update(formData);
+      if (res.status === 'Success') {
+        setFName(res?.data?.firstName);
+        setLName(res?.data?.lastName);
+        setImg(res?.data?.profileImageUrl);
+        Toast.show({
+          type: 'success',
+          text1: 'Profile Update Successfully',
+          visibilityTime: 3000,
+        });
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
     }
   };
   return (

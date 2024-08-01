@@ -86,8 +86,8 @@ export default function WishList() {
           ) : (
             <ScrollView style={style.mainContainer}>
               <Text style={style.MinText}>My WishList</Text>
-              {data.length > 0 ? (
-                data.map((val: any, index: any) => (
+              {data?.length > 0 ? (
+                data?.map((val: any, index: any) => (
                   <View key={index} style={style.cartContainer}>
                     <Image source={{uri: val.image}} style={style.img} />
                     <View style={{width: '100%'}}>

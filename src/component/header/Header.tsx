@@ -10,9 +10,8 @@ import React, {useEffect, useState} from 'react';
 import style from './style';
 import TextInputs from '../textInput/TextInputs';
 import {useGlobalContext} from '../context.tsx/Context';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {get_products_quantity} from '../../api/services/Get';
-import {Screen} from 'react-native-screens';
 const windowWidth = Dimensions.get('window').width;
 
 export default function Header() {
@@ -31,13 +30,21 @@ export default function Header() {
       context.isAdd_To_Cart_State(0);
     }
   };
+  const handleSearch = () => {
+    if (search.trim() !== '') {
+      nav.navigate('searchScrenn', {key: search});
+    }
+  };
   return (
-    <View style={{height: 103}}>
+    <View style={{height: 110}}>
       <ImageBackground
         source={require('../../assets/images/HeaderBackgroundImg.png')}
         style={style.BackgroundImg}>
         <View style={style.container}>
-          <Image source={require('../../assets/images/notification-add.png')} />
+          <Image
+            source={require('../../assets/images/Frame.png')}
+            style={{width: 70, height: 30}}
+          />
           <TouchableOpacity
             onPress={() => {
               nav.navigate('Add_To_Cart');
@@ -52,16 +59,17 @@ export default function Header() {
             </View>
           </TouchableOpacity>
         </View>
-        <View style={{alignItems: 'center', marginTop: -6}}>
+        <View style={{alignItems: 'center', marginTop: -10}}>
           <TextInputs
             onChange={setSearch}
-            placeholder={'Search products here'}
+            placeholder={'Search products...'}
             style={{
               width: windowWidth / 1.2,
               backgroundColor: 'white',
               borderColor: 'white',
               elevation: 5,
               color: 'black',
+              height: 40,
             }}
             icon={
               search == '' ? (
@@ -71,7 +79,7 @@ export default function Header() {
               ) : (
                 <TouchableOpacity
                   onPress={() => {
-                    nav.navigate('searchScrenn', {key: search});
+                    handleSearch();
                   }}>
                   <Image source={require('../../assets/images/search.png')} />
                 </TouchableOpacity>

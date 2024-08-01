@@ -42,11 +42,11 @@ export default function PopUp(props: popUpProps) {
           style.modalContainer,
           props.type == 'warnning'
             ? {
-                width: windowWidth / 1.5,
-                minHeight: windowWidth / 1.6,
+                width: windowWidth / 1.2,
+                minHeight: 240,
               }
             : props.type == 'location'
-            ? {width: windowWidth / 1.2, minHeight: windowHeight / 5.5}
+            ? {width: windowWidth / 1.1, minHeight: windowHeight / 5.5}
             : props.type == 'shippingAddress' && {
                 width: windowWidth / 1.7,
                 minHeight: windowWidth / 3.2,
@@ -133,7 +133,7 @@ export default function PopUp(props: popUpProps) {
                 style={style.cancelBtn}
               />
             </View>
-            <ScrollView style={{minHeight: 20, maxHeight: 120}}>
+            <ScrollView style={{minHeight: 20, maxHeight: 230}}>
               {props?.data?.map((val: any, index: any) => (
                 <View style={style.addressContainer}>
                   <View style={{alignItems: 'flex-end'}}>
@@ -145,12 +145,15 @@ export default function PopUp(props: popUpProps) {
                     />
                   </View>
                   <Text
+                  numberOfLines={2}
                     style={[
                       style.sureText,
                       {
                         fontSize: Theme.fontSize.size14,
                         fontWeight: '500',
-                        marginTop: Theme.fontSize.size10,
+                        textAlign:'left',
+                        paddingRight:25
+                        // marginTop: Theme.fontSize.size10,
                       },
                     ]}>
                     {val.city + ' ' + val.address}

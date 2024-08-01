@@ -12,7 +12,6 @@ import TextInputs from '../../component/textInput/TextInputs';
 import Buttons from '../../component/buttons/Buttons';
 import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import GoogleBtn from '../../component/buttons/GoogleBtn';
 import {Login} from '../../api/services/Post';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -127,13 +126,15 @@ export default function SignIn() {
             }}
           />
         )}
-        <Text style={style.orText}>Or</Text>
-        <GoogleBtn lebel={'Continue with Google'} />
+        {/* <Text style={style.orText}>Or</Text> */}
+        {/* <GoogleBtn lebel={'Continue with Google'} /> */}
         <Text style={style.CreateAccText}>
           Create account?{' '}
           <TouchableWithoutFeedback
             onPress={() => {
               nav.navigate('SignUp');
+              setPassword('');
+              setPhoneNo('');
             }}>
             <Text style={[style.CreateAccText, {color: Theme.colors.BtnColor}]}>
               Sign up

@@ -43,7 +43,7 @@ export default function Main_Sub_Categori() {
     }
   };
   return (
-    <ScrollView style={style.mainContainer}>
+    <ScrollView style={[style.mainContainer,{paddingHorizontal:10}]}>
       <Text style={[style.mainTextHeading, {marginTop: 20}]}>
         {Route.params.name} Furniture
       </Text>

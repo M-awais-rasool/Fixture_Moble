@@ -7,6 +7,7 @@ import UserProfile from '../screen/bottomTab/userProfile/UserProfile';
 import BottomStack from './BottomStack';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../component/header/Header';
+import ProfileStack from './ProfileStack';
 
 export default function BottomTabs() {
   const Tab = createBottomTabNavigator();
@@ -47,14 +48,14 @@ export default function BottomTabs() {
               );
             },
           }}
-          listeners={({navigation, route}) => ({
-            tabPress: e => {
-              Animated.spring(tabOffsetValue, {
-                toValue: 0,
-                useNativeDriver: true,
-              }).start();
-            },
-          })}
+          // listeners={({navigation, route}) => ({
+          //   tabPress: e => {
+          //     Animated.spring(tabOffsetValue, {
+          //       toValue: 0,
+          //       useNativeDriver: true,
+          //     }).start();
+          //   },
+          // })}
         />
         <Tab.Screen
           component={WishList}
@@ -76,14 +77,14 @@ export default function BottomTabs() {
               );
             },
           }}
-          listeners={({navigation, route}) => ({
-            tabPress: e => {
-              Animated.spring(tabOffsetValue, {
-                toValue: getWidth() * 1.4,
-                useNativeDriver: true,
-              }).start();
-            },
-          })}
+          // listeners={({navigation, route}) => ({
+          //   tabPress: e => {
+          //     Animated.spring(tabOffsetValue, {
+          //       toValue: getWidth() * 1.4,
+          //       useNativeDriver: true,
+          //     }).start();
+          //   },
+          // })}
         />
         <Tab.Screen
           component={searchScrenn}
@@ -107,18 +108,18 @@ export default function BottomTabs() {
               );
             },
           }}
-          listeners={({navigation, route}) => ({
-            tabPress: e => {
-              Animated.spring(tabOffsetValue, {
-                toValue: getWidth() * 2.8,
-                useNativeDriver: true,
-              }).start();
-            },
-          })}
+          // listeners={({navigation, route}) => ({
+          //   tabPress: e => {
+          //     Animated.spring(tabOffsetValue, {
+          //       toValue: getWidth() * 2.8,
+          //       useNativeDriver: true,
+          //     }).start();
+          //   },
+          // })}
         />
         <Tab.Screen
-          component={UserProfile}
-          name="UserProfile"
+          component={ProfileStack}
+          name="ProfileStack"
           options={{
             tabBarShowLabel: false,
             tabBarIcon: ({focused}: any) => {
@@ -136,17 +137,17 @@ export default function BottomTabs() {
               );
             },
           }}
-          listeners={({navigation, route}) => ({
-            tabPress: e => {
-              Animated.spring(tabOffsetValue, {
-                toValue: getWidth() * 4.3,
-                useNativeDriver: true,
-              }).start();
-            },
-          })}
+          // listeners={({navigation, route}) => ({
+          //   tabPress: e => {
+          //     Animated.spring(tabOffsetValue, {
+          //       toValue: getWidth() * 4.3,
+          //       useNativeDriver: true,
+          //     }).start();
+          //   },
+          // })}
         />
       </Tab.Navigator>
-      <Animated.View
+      {/* <Animated.View
         style={{
           width: getWidth() - 20,
           height: 2,
@@ -156,13 +157,13 @@ export default function BottomTabs() {
           left: 40,
           borderRadius: 20,
           transform: [{translateX: tabOffsetValue}],
-        }}></Animated.View>
+        }}></Animated.View> */}
     </SafeAreaView>
   );
 
-  function getWidth() {
-    let width = Dimensions.get('window').width;
-    width = width - 80;
-    return width / 5;
-  }
+  // function getWidth() {
+  //   let width = Dimensions.get('window').width;
+  //   width = width - 80;
+  //   return width / 5;
+  // }
 }

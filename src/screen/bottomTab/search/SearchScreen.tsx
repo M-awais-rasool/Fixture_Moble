@@ -22,25 +22,24 @@ export default function MessageScreen() {
   const nav: any = useNavigation();
   const context: any = useGlobalContext();
   const [loading, setLoading] = useState(false);
-  const [img, setimg] = useState('');
+  // const [img, setimg] = useState<any>([]);
   useFocusEffect(
     React.useCallback(() => {
-      getData();
-    }, []),
+      getData(Route.params?.key);
+    }, [Route.params?.key]),
   );
-  const getData = async () => {
+  const getData = async (searchKey: string) => {
     setLoading(true);
     const isConnected = await isNetworkAvailable();
     if (isConnected) {
       try {
-        const res: any = await get_search_product(Route.params?.key);
-        console.log(res)
-        setimg(res.productMedias);
+        const res: any = await get_search_product(searchKey);
+        console.log(res);
         setLoading(false);
         setData(res);
       } catch (error: any) {
         setLoading(false);
-        console.log(error);
+        console.log(error)
       }
     }
   };
@@ -93,7 +92,6 @@ export default function MessageScreen() {
                 <Product_cart
                   type={'search'}
                   data={val}
-                  img={data}
                   onCartPress={() => {
                     addToCart(val.productId);
                   }}

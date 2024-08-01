@@ -31,7 +31,15 @@ export default function DropDown(props: DropDown) {
             setisClicked(!isClicked);
             props.checkCity?.();
           }}>
-          <Text style={style.genderlabel}>{props.lebel}</Text>
+          <Text
+            style={[
+              style.PlaceHolder,
+              props.lebel == 'Select Your City' || props.lebel == 'Select Your State'
+                ? {color: 'gray'}
+                : {color: 'black'},
+            ]}>
+            {props.lebel}
+          </Text>
           {isClicked ? (
             <Image source={require('../../assets/images/arrowUp.png')} />
           ) : (
@@ -52,7 +60,7 @@ export default function DropDown(props: DropDown) {
                 }
                 props.setLebel?.(val);
               }}>
-              <Text style={style.genderlabel}>{val}</Text>
+              <Text style={style.dropDownText}>{val}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -66,7 +74,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   dropDownSelected: {
-    borderRadius: Theme.fontSize.size10,
+    borderRadius: Theme.fontSize.size5,
     borderWidth: 1,
     borderColor: Theme.colors.disable,
     height: Theme.fontSize.size40,
@@ -91,7 +99,7 @@ const style = StyleSheet.create({
     zIndex: Theme.fontSize.size1,
     borderWidth: Theme.fontSize.size1,
     borderColor: Theme.colors.disable,
-    maxHeight: Theme.fontSize.size100,
+    maxHeight: Theme.fontSize.size120,
   },
   data: {
     width: Theme.fontSize.size250,
@@ -105,11 +113,17 @@ const style = StyleSheet.create({
     fontWeight: '500',
     color: Theme.colors.black,
   },
-  genderlabel: {
+  PlaceHolder: {
+    color: 'gray',
+    fontSize: Theme.fontSize.size13,
+    fontWeight: '600',
+    // paddingLeft: Theme.fontSize.size5,
+    opacity: 0.7,
+  },
+  dropDownText: {
     color: 'black',
     fontSize: Theme.fontSize.size13,
     fontWeight: '500',
     paddingLeft: Theme.fontSize.size5,
-    opacity: 0.7,
   },
 });

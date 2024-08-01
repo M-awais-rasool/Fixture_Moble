@@ -29,11 +29,12 @@ export default function Add_To_Cart() {
     getData();
   }, []);
   const getData = async () => {
-    setLoading(true);
+    // setLoading(true);
     const isConnected = await isNetworkAvailable();
     if (isConnected) {
       try {
         const res = await get_cart_products();
+        console.log(res);
         setData(res);
         TotalPrice(res);
         setLoading(false);
@@ -157,7 +158,7 @@ export default function Add_To_Cart() {
               {data?.cartProduct?.map((val: any, index: any) => (
                 <View key={index} style={style.cartContainer}>
                   <Image source={{uri: val.image}} style={style.img} />
-                  <View style={{width: '100%'}}>
+                  <View style={{flex:1}}>
                     <View style={style.wishlistContainer}>
                       <TouchableOpacity
                         onPress={() => {
@@ -168,11 +169,9 @@ export default function Add_To_Cart() {
                         />
                       </TouchableOpacity>
                     </View>
-                    <View style={{width: '100%'}}>
-                      <Text style={style.productNameText} numberOfLines={1}>
-                        {val.productName}
-                      </Text>
-                    </View>
+                    <Text style={style.productNameText} numberOfLines={1}>
+                      {val.productName}
+                    </Text>
                     <Text style={style.Price}>Rs: {val.discountPrice}</Text>
                     {val.discountPrice > 0 && (
                       <View style={style.rowContainer}>
@@ -232,26 +231,6 @@ export default function Add_To_Cart() {
                   </View>
                 </View>
               ))}
-              <View style={[style.cartContainer, {flexDirection: 'column'}]}>
-                <Text
-                  style={[style.MinText, {textAlign: 'center', marginTop: 0}]}>
-                  Cart Summary
-                </Text>
-                <View style={style.flexRow}>
-                  <Text style={style.highlightText}>Subtotal</Text>
-                  <Text style={style.Price}>Rs: {subtotal}</Text>
-                </View>
-                <View style={style.flexRow}>
-                  <Text style={style.highlightText}>Discount</Text>
-                  <Text style={style.Price}>Rs: {discount}</Text>
-                </View>
-                <View style={style.line} />
-                <View style={style.flexRow}>
-                  <Text style={style.highlightText}>Total</Text>
-                  <Text style={style.Price}>Rs: {total}</Text>
-                </View>
-                <Buttons title={'Proceed to checkout'} onPress={() => {}} />
-              </View>
             </>
           ) : (
             <View style={{alignItems: 'center', rowGap: Theme.fontSize.size10}}>

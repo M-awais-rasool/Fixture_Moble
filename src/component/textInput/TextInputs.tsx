@@ -12,6 +12,7 @@ interface props {
   value?: any;
   readOnly?: boolean;
   icon?: any;
+  multiline?:any
   onChange?: (i: any) => void;
 }
 export default function TextInputs(props: props) {
@@ -29,6 +30,7 @@ export default function TextInputs(props: props) {
         maxLength={props.maxLength}
         value={props.value}
         readOnly={props.readOnly}
+        multiline={props.multiline}
       />
       <View style={style.icon}>{props.icon}</View>
     </View>

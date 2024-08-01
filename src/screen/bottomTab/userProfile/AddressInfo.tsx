@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Buttons from '../../../component/buttons/Buttons';
 import style from './style';
@@ -19,6 +19,7 @@ import {get_Shipping_address} from '../../../api/services/Get';
 import Loader from '../../../component/loader/Loader';
 import {update_shipping_Address} from '../../../api/services/Put';
 import {isNetworkAvailable} from '../../../api/Api';
+const windowWidth = Dimensions.get('window').width;
 
 export default function AddressInfo() {
   const emailValidation = /^[a-zA-Z0-9._]+@[a-z]+\.[a-z]{3,6}$/;
@@ -114,7 +115,7 @@ export default function AddressInfo() {
     }
   };
   const getshippingAddress = async () => {
-    setLoading(true);
+    // setLoading(true);
     const isConnected = await isNetworkAvailable();
     if (isConnected) {
       try {
@@ -266,7 +267,12 @@ export default function AddressInfo() {
                       {marginVertical: Theme.fontSize.size10},
                     ]}
                     key={index}>
-                    <View style={{flexDirection: 'row', gap: 3}}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        gap: 3,
+                        alignItems: 'center',
+                      }}>
                       <View>
                         <Text style={style.nameHeading}>Name:</Text>
                         <Text style={style.nameHeading}>Address:</Text>
@@ -276,11 +282,13 @@ export default function AddressInfo() {
                         <Text style={[style.nameHeading, {fontWeight: '400'}]}>
                           {val.firstName}
                         </Text>
+
                         <Text
-                          style={[style.nameHeading, {fontWeight: '400'}]}
-                          numberOfLines={2}>
-                          Pakistan {val.city + ' ' + val.address}
+                          style={[style.nameHeading, {fontWeight: '400',width:windowWidth-120}]}
+                          numberOfLines={1}>
+                          Pakistan {val.address}
                         </Text>
+
                         <Text style={[style.nameHeading, {fontWeight: '400'}]}>
                           {val.phoneNo}
                         </Text>

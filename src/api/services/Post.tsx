@@ -33,3 +33,13 @@ export const add_new_shipping_address = async (data: any) => {
   );
   return res;
 };
+
+export const add_order = async (id: any, data: any) => {
+  const res: any = await API.post(`Order/add-order/${id}`, data);
+  return res.data;
+};
+
+export const add_order_by_cart = async (data: any) => {
+  const res: any = await API.post('Order/add-order-by-cart', data);
+  return res.data;
+};

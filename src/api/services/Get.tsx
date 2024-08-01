@@ -76,3 +76,13 @@ export async function get_search_product(key:any) {
   const res = await API.get(`Home/get-products-by-search/${key}`);
   return res.data.data;
 }
+
+export async function get_all_orders() {
+  const res = await API.get('Order/get-customer-orders');
+  return res.data.data;
+}
+
+export async function get_orders_Details(id:any) {
+  const res = await API.get(`Order/get-order-detail/${id}`);
+  return res.data.data;
+}

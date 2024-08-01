@@ -45,7 +45,6 @@ export default function Product_Details() {
     if (isConnected) {
       try {
         const getProduct: any = await get_products(Route.params.Id);
-        console.log(getProduct);
         setData(getProduct);
         getProduct?.productMedias?.map((val: any, index: any) => {
           if (index < 1) {
@@ -78,7 +77,16 @@ export default function Product_Details() {
         if (data?.isInWishList) {
           const res = await remove_to_WishList(data?.productId);
           if (res.status == 200) {
-            getData();
+            const getProduct: any = await get_products(Route.params.Id);
+            setData(getProduct);
+            getProduct?.productMedias?.map((val: any, index: any) => {
+              if (index < 1) {
+                setMainImg(val.imgUrl);
+              } else if (val.isThumbNail == true) {
+                setMainImg(null);
+                setMainImg(val.imgUrl);
+              }
+            });
             Toast.show({
               type: 'success',
               text1: res.data.message + '.😒',
@@ -94,7 +102,16 @@ export default function Product_Details() {
         } else {
           const res = await add_to_WishList(data?.productId);
           if (res.status == 200) {
-            getData();
+            const getProduct: any = await get_products(Route.params.Id);
+            setData(getProduct);
+            getProduct?.productMedias?.map((val: any, index: any) => {
+              if (index < 1) {
+                setMainImg(val.imgUrl);
+              } else if (val.isThumbNail == true) {
+                setMainImg(null);
+                setMainImg(val.imgUrl);
+              }
+            });
             Toast.show({
               type: 'success',
               text1: res.data.message + '.😍',
@@ -320,30 +337,17 @@ export default function Product_Details() {
           <View style={style.Contianer}>
             <Text style={style.deliveryText}>Delivery</Text>
             <View style={style.deliveryContainer}>
-              <View style={{width: '50%'}}>
+              <View style={{width: '50%', alignItems: 'center'}}>
+                <Image source={require('../../assets/images/location.png')} />
                 <View style={style.deliveryInnerContainer1}>
-                  <Image
-                    source={require('../../assets/images/location.png')}
-                    style={{marginTop: Theme.fontSize.size20}}
-                  />
                   {defualtAddress != null && (
                     <Text style={[style.Price]} numberOfLines={1}>
                       {defualtAddress?.city + ' ' + defualtAddress?.address}
                     </Text>
                   )}
-                </View>
-                <View
-                  style={[
-                    {
-                      alignItems: 'center',
-                      marginTop: -Theme.fontSize.size10,
-                    },
-                    defualtAddress == null && {
-                      marginTop: -Theme.fontSize.size55,
-                    },
-                  ]}>
                   <Buttons
                     title={'Change Location'}
+                    style={{marginTop: 10}}
                     onPress={() => {
                       setIsVisible(true);
                     }}
@@ -397,7 +401,7 @@ export default function Product_Details() {
             setAdressId={setAdressId}
             functionCall={updateAddress}
           />
-          <View style={{marginBottom: 50}} />
+          <View style={{marginBottom: 30}} />
         </ScrollView>
       )}
     </>

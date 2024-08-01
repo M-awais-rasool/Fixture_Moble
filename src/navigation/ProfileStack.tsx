@@ -9,25 +9,16 @@ import Add_To_Cart from '../screen/add_to_cart/Add_To_Cart';
 import BuyNow from '../screen/buyNow/BuyNow';
 import AllProduct from '../screen/allPorduct/AllProduct';
 import ManageOrder from '../screen/bottomTab/userProfile/manageOrder/ManageOrder';
+import UserProfile from '../screen/bottomTab/userProfile/UserProfile';
 
-export default function BottomStack() {
+export default function ProfileStack() {
   const Stack = createStackNavigator();
   return (
     <>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="UserProfile"
         screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen
-          name="Main_categori_details"
-          component={Main_categori_details}
-        />
-        <Stack.Screen name="Main_Sub_Categori" component={Main_Sub_Categori} />
-        <Stack.Screen name="Add_To_Cart" component={Add_To_Cart} />
-        <Stack.Screen name="Product_Details" component={Product_Details} />
-        <Stack.Screen name="BuyNow" component={BuyNow} />
-        <Stack.Screen name="BottomTabs" component={BottomTabs} />
-        <Stack.Screen name="AllProduct" component={AllProduct} />
+        <Stack.Screen name="UserProfile" component={UserProfile} />
         <Stack.Screen name="ManageOrder" component={ManageOrder} />
       </Stack.Navigator>
     </>

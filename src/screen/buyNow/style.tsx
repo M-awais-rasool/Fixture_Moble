@@ -15,6 +15,7 @@ const style = StyleSheet.create({
     backgroundColor: Theme.colors.white,
     elevation: Theme.fontSize.size2,
     rowGap: Theme.fontSize.size10,
+    flex:1
   },
   flexRow: {
     flexDirection: 'row',
@@ -43,7 +44,8 @@ const style = StyleSheet.create({
   oderFlexRow:{
     flexDirection:'row',
     alignItems:'center',
-    justifyContent:'space-around'
+    justifyContent:'space-around',
+    flex:1
   },
   oderName:{
     fontSize: Theme.fontSize.size14,
